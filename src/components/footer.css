@@ -1,0 +1,32 @@
+footer {
+  background-color: #c8c0bb;
+  color: black;
+  margin-top: 7rem;
+}
+.footer-wrapper {
+  min-height: 10vh;
+  display: flex;
+  padding: 2rem;
+  width: 90%;
+  margin: auto;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.footer-wrapper h5 {
+  flex: 1 1 40rem;
+}
+.footer-wrapper ul {
+  display: flex;
+  list-style: none;
+  flex: 1 1 40rem;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 80rem) {
+  footer {
+    text-align: center;
+  }
+  footer h5 {
+    padding-bottom: 3rem;
+  }
+}

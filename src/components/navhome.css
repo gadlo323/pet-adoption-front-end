@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Ranchers&family=Yanone+Kaffeesatz&display=swap");
+
+li {
+  list-style: none;
+}
+
+.header {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  min-height: 10vh;
+  align-items: center;
+  color: black;
+  font-family: "Ranchers", cursive;
+}
+
+.left-nav {
+  display: flex;
+  align-items: center;
+}
+.search-nav {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  border: none;
+  border-radius: 4rem;
+  margin-left: 2rem;
+  background-color: #018675;
+  cursor: pointer;
+}
+.search-nav:hover {
+  background-color: #49b9ae;
+}
+.search-link {
+  text-decoration: none;
+  color: white;
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  cursor: pointer;
+}
+.logo-name {
+  font-size: 2rem;
+  padding: 0 1rem;
+  text-transform: uppercase;
+}
+.logo img {
+  max-width: 5rem;
+}
+.auth-user {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+}
+.btn {
+  padding: 0.5rem 1rem;
+  font-size: 1.6rem;
+  margin-left: 1rem;
+  background-color: transparent;
+  border: none;
+  border-radius: 2rem;
+  font-family: "Ranchers", cursive;
+  cursor: pointer;
+}

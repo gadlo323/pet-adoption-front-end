@@ -1,0 +1,16 @@
+#swiper {
+  width: 100%;
+  margin: auto;
+  min-height: 10vh;
+  padding: 2rem;
+  box-shadow: 3px 8px 20px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 3px 8px 20px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 8px 20px 0px rgba(0, 0, 0, 0.75);
+  cursor: grab;
+  margin-bottom: 2rem;
+}
+
+.dog-img {
+  width: 25rem;
+  height: 25rem;
+}
