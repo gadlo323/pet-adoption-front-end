@@ -17,6 +17,12 @@
   align-items: center;
   flex-direction: row-reverse;
 }
+.details-info {
+  min-height: 60vh;
+}
+.details-info img {
+  max-width: 40rem;
+}
 .head-line {
   font-size: 4rem;
   padding: 1rem;
@@ -26,6 +32,6 @@
   font-size: 2rem;
   padding: 1rem;
   line-height: 3.5rem;
-  text-align: center;
+
   font-family: "Yanone Kaffeesatz", sans-serif;
 }

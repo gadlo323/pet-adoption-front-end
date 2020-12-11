@@ -8,9 +8,7 @@ const Welcoming = () => {
           <img src="./adopet-hero.jpg" alt="adopet" />
         </div>
         <div className="details-info">
-          <h1 className="head-line">
-            Welcome and hope you find the friend that works best for you.
-          </h1>
+          <h1 className="head-line">Your Newly Adopted Pet &#128062;</h1>
           <p>
             By taking home a dog adoption from a rescue or a shelter, not only
             are you saving that pet, you're either making room in the rescue so
@@ -20,6 +18,7 @@ const Welcoming = () => {
             for considering dog adoption, and please help us debunk the myth of
             homeless pets in the future.
           </p>
+          <img src="./dogs_cats.png" alt="catsandogs" />
         </div>
       </div>
     </section>

@@ -1,0 +1,82 @@
+.signup-model {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50rem;
+  min-height: 55vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80rem;
+  box-shadow: -2px 8px 25px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: -2px 8px 25px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -2px 8px 25px 0px rgba(0, 0, 0, 0.75);
+  background-color: #303940;
+  z-index: 2;
+}
+.top-model {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 1rem;
+}
+.title-sign {
+  display: flex;
+  flex-basis: 54%;
+  font-size: 5rem;
+  padding-bottom: 2rem;
+  color: aliceblue;
+}
+.fa-times-circle {
+  font-size: 3rem;
+  cursor: pointer;
+}
+.wrapeer-model {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.model-form {
+  display: flex;
+  flex-direction: column;
+}
+.inputs-fields {
+  margin: 2rem 0;
+}
+.input-field {
+  padding: 0.5rem 1rem;
+  font-size: 1.6rem;
+  margin-left: 1rem;
+  border: none;
+  border-radius: 10rem;
+  outline: none;
+}
+.btn-Group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+.btn-Group label {
+  font-size: 2rem;
+  font-weight: 700;
+  padding: 1rem;
+}
+.signup-btn {
+  padding: 0.5rem 7rem;
+  font-size: 2rem;
+  margin: 2rem;
+  border: none;
+  border-radius: 10rem;
+  background-color: #8c162c;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  transition: 1s;
+}
+.signup-btn:hover {
+  background-color: #f03523;
+}
+.popy-cover {
+  max-width: 15rem;
+}
