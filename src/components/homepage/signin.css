@@ -1,4 +1,4 @@
-.signup-model {
+.login-model {
   position: absolute;
   top: 40%;
   left: 50%;
@@ -7,75 +7,62 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80rem;
+  width: 60rem;
   box-shadow: -2px 8px 25px 0px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: -2px 8px 25px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -2px 8px 25px 0px rgba(0, 0, 0, 0.75);
   background-color: #303940;
   z-index: 2;
 }
-.top-model {
+.login-wrapeer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+.top-login {
   display: flex;
   width: 100%;
   justify-content: space-between;
   padding: 1rem;
 }
-.title-sign {
+.title-signin {
   display: flex;
-  flex-basis: 54%;
-  font-size: 5rem;
+  flex-basis: 60%;
+  font-size: 4rem;
   padding-bottom: 2rem;
   color: aliceblue;
 }
-.fa-times-circle {
-  font-size: 3rem;
-  cursor: pointer;
+
+.login-img img {
+  max-width: 30rem;
 }
-.wrapeer-model {
+.main-model {
   display: flex;
-  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 4rem;
 }
-.model-form {
+.login-form {
   display: flex;
   flex-direction: column;
 }
-.inputs-fields {
-  margin: 2rem 0;
-}
-.input-field {
+.input-login {
   padding: 0.5rem 1rem;
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   margin-left: 1rem;
   border: none;
   border-radius: 10rem;
   outline: none;
+  margin-bottom: 2rem;
 }
-.btn-Group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-}
-.btn-Group label {
+.login-btn {
+  padding: 0.5rem 0rem;
   font-size: 2rem;
-  font-weight: 700;
-  padding: 1rem;
-}
-.signup-btn {
-  padding: 0.5rem 7rem;
-  font-size: 2rem;
-  margin: 2rem;
   border: none;
-  border-radius: 10rem;
-  background-color: #8c162c;
+  border-radius: 1rem;
+  background-color: lightsalmon;
   color: white;
   outline: none;
   cursor: pointer;
-  transition: 1s;
-}
-.signup-btn:hover {
-  background-color: #f03523;
-}
-.popy-cover {
-  max-width: 15rem;
 }

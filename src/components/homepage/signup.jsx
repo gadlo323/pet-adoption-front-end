@@ -3,18 +3,21 @@ import Modal from "react-modal";
 import "./signup.css";
 
 Modal.setAppElement("#root");
-const Signup = () => {
+const Signup = ({ show, setModel }) => {
   const [firstName, setFirstname] = useState("");
   const [lastName, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repatePass, setRepatePass] = useState("");
-  const [isOpen, setIsopen] = useState(false);
+
+  const closeModel = () => {
+    setModel(!show);
+  };
 
   return (
-    <Modal className="signup-model" isOpen={isOpen}>
+    <Modal className="signup-model" isOpen={show}>
       <div className="top-model">
-        <i className="fa fa-times-circle "></i>
+        <i className="fa fa-times-circle" onClick={closeModel}></i>
         <h1 className="title-sign">Sign Up</h1>
       </div>
       <div className="wrapeer-model">
@@ -55,6 +58,7 @@ const Signup = () => {
               type="password"
               placeholder="Password.."
               value={password}
+              autoComplete="on"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
@@ -64,6 +68,7 @@ const Signup = () => {
               type="password"
               placeholder="confirm password..."
               value={repatePass}
+              autoComplete="on"
               onChange={(e) => setRepatePass(e.target.value)}
               required
             />
