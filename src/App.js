@@ -8,12 +8,14 @@ import "./App.css";
 import NavLogged from "./components/loggedIn/navLogged";
 import LinksCard from "./components/loggedIn/linksCard";
 import ProfileSettings from "./components/loggedIn/profilesettings";
+import Mypets from "./components/loggedIn/mypets";
 
 function App() {
   return (
     <div className="App">
       <NavLogged />
-      <ProfileSettings />
+      <Mypets />
+      {/* <ProfileSettings /> */}
       {/* <LinksCard /> */}
       {/* <Navhome />
       <Welcoming />
