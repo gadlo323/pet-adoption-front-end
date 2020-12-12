@@ -7,12 +7,14 @@ import Swiperimg from "./components/homepage/swiperimg";
 import "./App.css";
 import NavLogged from "./components/loggedIn/navLogged";
 import LinksCard from "./components/loggedIn/linksCard";
+import ProfileSettings from "./components/loggedIn/profilesettings";
 
 function App() {
   return (
     <div className="App">
       <NavLogged />
-      <LinksCard />
+      <ProfileSettings />
+      {/* <LinksCard /> */}
       {/* <Navhome />
       <Welcoming />
       <Swiperimg />
