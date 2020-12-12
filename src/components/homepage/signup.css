@@ -39,13 +39,11 @@
   display: flex;
   flex-direction: column;
 }
-.inputs-fields {
-  margin: 2rem 0;
-}
+
 .input-field {
   padding: 0.5rem 1rem;
   font-size: 1.6rem;
-  margin-left: 1rem;
+  margin: 1rem;
   border: none;
   border-radius: 10rem;
   outline: none;

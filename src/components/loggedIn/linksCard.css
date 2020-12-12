@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald&display=swap");
+.wrapper {
+  min-height: 90vh;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cards {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  font-family: "Oswald", sans-serif;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: 50vh;
+  width: 25%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5rem;
+  box-shadow: -5px 1px 22px 0px rgba(17, 3, 12, 0.75);
+  -webkit-box-shadow: -5px 1px 22px 0px rgba(17, 3, 12, 0.75);
+  -moz-box-shadow: -5px 1px 22px 0px rgba(17, 3, 12, 0.75);
+  background-color: blanchedalmond;
+}
+.crad-img img {
+  max-width: 20rem;
+}
+.top-card {
+  font-size: 2rem;
+}
+
+.crad-link a {
+  font-size: 2rem;
+}

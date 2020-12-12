@@ -1,0 +1,22 @@
+a {
+  text-decoration: none;
+  padding: 2rem;
+  color: black;
+}
+
+.welcome-user {
+  font-size: 3rem;
+}
+
+.log-out:hover {
+  background-color: lightseagreen;
+  color: white;
+}
+
+.log-out {
+  padding: 0.5rem 1rem;
+  font-size: 1.6rem;
+  background-color: transparent;
+  border-radius: 1rem;
+  cursor: pointer;
+}

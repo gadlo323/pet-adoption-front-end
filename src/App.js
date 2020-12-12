@@ -5,14 +5,18 @@ import Welcoming from "./components/homepage/welcoming";
 import Footer from "./components/homepage/footer";
 import Swiperimg from "./components/homepage/swiperimg";
 import "./App.css";
+import NavLogged from "./components/loggedIn/navLogged";
+import LinksCard from "./components/loggedIn/linksCard";
 
 function App() {
   return (
     <div className="App">
-      <Navhome />
+      <NavLogged />
+      <LinksCard />
+      {/* <Navhome />
       <Welcoming />
       <Swiperimg />
-      <Footer />
+      <Footer /> */}
     </div>
   );
 }

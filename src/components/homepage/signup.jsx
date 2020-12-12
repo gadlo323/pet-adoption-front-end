@@ -7,6 +7,7 @@ const Signup = ({ show, setModel }) => {
   const [firstName, setFirstname] = useState("");
   const [lastName, setLastname] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [repatePass, setRepatePass] = useState("");
 
@@ -49,6 +50,15 @@ const Signup = ({ show, setModel }) => {
             placeholder="exmple@exmple.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            name="phone"
+            className="input-field"
+            type="number"
+            placeholder="Phone Number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             required
           />
           <div className="inputs-fields">
