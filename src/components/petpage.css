@@ -1,0 +1,84 @@
+.detalis {
+  width: 90%;
+  margin: auto;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pet-detalis {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row-reverse;
+  min-height: 70vh;
+  background-color: #06090f;
+  color: white;
+}
+.pet-info {
+  font-size: 2rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 50vh;
+  width: 70%;
+  justify-content: space-between;
+}
+.row {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  border: 3px solid black;
+  padding: 3rem;
+  transition: 1.5s;
+}
+.row:hover {
+  background-color: #577c9e;
+}
+.colume {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+}
+
+.pet-btns {
+  display: flex;
+  padding: 4rem;
+}
+.pet-btn {
+  padding: 0.5rem 2rem;
+  margin-left: 3rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+  color: white;
+  outline: none;
+}
+.save {
+  background-color: lightseagreen;
+}
+.Adopet {
+  background-color: #26828c;
+}
+.return {
+  background-color: #b7272c;
+}
+
+@media (max-width: 80rem) {
+  .detalis,
+  .pet-info {
+    width: 100%;
+    min-height: 100vh;
+  }
+  .pet-detalis {
+    flex-wrap: wrap;
+  }
+  .row {
+    font-size: 1.6rem;
+  }
+  .pet-btn {
+    margin-left: 1rem;
+  }
+}
