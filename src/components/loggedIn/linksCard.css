@@ -26,7 +26,12 @@
   box-shadow: -5px 1px 22px 0px rgba(17, 3, 12, 0.75);
   -webkit-box-shadow: -5px 1px 22px 0px rgba(17, 3, 12, 0.75);
   -moz-box-shadow: -5px 1px 22px 0px rgba(17, 3, 12, 0.75);
-  background-color: blanchedalmond;
+  background-color: #385a64;
+}
+.card:hover {
+  transform: translateY(-5rem);
+  background-color: #ff4f5a;
+  color: white;
 }
 .crad-img img {
   max-width: 20rem;
