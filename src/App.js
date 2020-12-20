@@ -8,6 +8,8 @@ import ProfileSettings from "./components/loggedIn/profilesettings";
 import Mypets from "./components/loggedIn/mypets";
 import Petpage from "./components/loggedIn/petpage";
 import PrivateRoute from "./components/PrivateRoute";
+import Addpet from "./components/admin/addPet";
+import Admindashborad from "./components/admin/admindasborad";
 
 function App() {
   return (
@@ -24,7 +26,12 @@ function App() {
           />
           <PrivateRoute exact path="/Mypets" component={Mypets} />
           <PrivateRoute exact path="/Petpage" component={Petpage} />
-          {/* <PrivateRoute exact path="/admin/addPet" component={AddPet} /> */}
+          <PrivateRoute exact path="/admin/addpet" component={Addpet} />
+          <PrivateRoute
+            exact
+            path="/admin/deshborad"
+            component={Admindashborad}
+          />
         </Switch>
       </div>
     </Router>

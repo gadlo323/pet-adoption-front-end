@@ -1,0 +1,61 @@
+[{
+  "id": 1,
+  "first_name": "Ty",
+  "last_name": "Reedie",
+  "email": "treedie0@tinypic.com",
+  "gender": "Male"
+}, {
+  "id": 2,
+  "first_name": "Jacquelyn",
+  "last_name": "Yitzowitz",
+  "email": "jyitzowitz1@cbslocal.com",
+  "gender": "Female"
+}, {
+  "id": 3,
+  "first_name": "Agnesse",
+  "last_name": "Lesor",
+  "email": "alesor2@theatlantic.com",
+  "gender": "Female"
+}, {
+  "id": 4,
+  "first_name": "Vanni",
+  "last_name": "Simper",
+  "email": "vsimper3@go.com",
+  "gender": "Female"
+}, {
+  "id": 5,
+  "first_name": "Ben",
+  "last_name": "Brailsford",
+  "email": "bbrailsford4@stanford.edu",
+  "gender": "Male"
+}, {
+  "id": 6,
+  "first_name": "Cherlyn",
+  "last_name": "Baddam",
+  "email": "cbaddam5@netvibes.com",
+  "gender": "Female"
+}, {
+  "id": 7,
+  "first_name": "Will",
+  "last_name": "Sadgrove",
+  "email": "wsadgrove6@amazonaws.com",
+  "gender": "Male"
+}, {
+  "id": 8,
+  "first_name": "Dougy",
+  "last_name": "Tewes",
+  "email": "dtewes7@aol.com",
+  "gender": "Male"
+}, {
+  "id": 9,
+  "first_name": "Sherlocke",
+  "last_name": "Dumingo",
+  "email": "sdumingo8@fema.gov",
+  "gender": "Male"
+}, {
+  "id": 10,
+  "first_name": "Kenn",
+  "last_name": "Vakhlov",
+  "email": "kvakhlov9@istockphoto.com",
+  "gender": "Male"
+}]

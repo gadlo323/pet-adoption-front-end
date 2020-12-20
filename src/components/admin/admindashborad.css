@@ -1,0 +1,11 @@
+.admin-deshborad {
+  width: 90%;
+  margin: auto;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.add-pet-link {
+  font-size: 2rem;
+}
