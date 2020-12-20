@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Signup from "./signup";
 import Signin from "./signin";
 import "./navhome.css";
@@ -23,9 +23,9 @@ const Navhome = () => {
           <img src="./dog.png" alt="" />
         </div>
         <div className="search-nav">
-          <a className="search-link" href="#">
+          <NavLink className="search-link" exact to="/search">
             Search
-          </a>
+          </NavLink>
           <img src="./Vector-search.png" alt="" />
         </div>
       </div>

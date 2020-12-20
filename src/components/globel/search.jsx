@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import Navhome from "../homepage/navhome";
 import { NavLink } from "react-router-dom";
-import NavLogged from "./navLogged";
+import NavLogged from "../loggedIn/navLogged";
 import "swiper/swiper-bundle.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation } from "swiper";
-import "./mypets.css";
-
-SwiperCore.use(Navigation);
-const Mypets = () => {
+import Searchbar from "./searchbar";
+import "./search.css";
+const Serach = () => {
+  const curreentUser = "";
+  const [list, setList] = useState([]);
   const pets = [
     {
       id: 1,
@@ -44,7 +46,7 @@ const Mypets = () => {
   for (let i = 0; i < pets.length; i++) {
     slides.push(
       <SwiperSlide key={`img${i}`}>
-        <div className="card-pet">
+        <div className="card-pet search-card">
           <div className="pet-img">
             <img src={pets[i].petImg} alt={pets[i].name} />
           </div>
@@ -69,22 +71,18 @@ const Mypets = () => {
   }
   return (
     <>
-      <NavLogged />
-      {pets.length === 0 && (
-        <h1 className="no-pets">
-          you currently do not own or foster any pets &#128562;
-          <br /> Go get yourself some &#128062;
-        </h1>
-      )}
-      <section className="my-pets">
+      {curreentUser ? <NavLogged /> : <Navhome />}
+      <section className="search-page">
+        <Searchbar />
         <div className="crads-pets">
           <Swiper spaceBetween={20} slidesPerView={3} navigation>
             {slides}
           </Swiper>
         </div>
       </section>
+      ;
     </>
   );
 };
 
-export default Mypets;
+export default Serach;

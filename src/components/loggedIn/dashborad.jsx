@@ -1,9 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import NavLogged from "./navLogged";
-import "./linksCard.css";
+import "./dashborad.css";
 
-const LinksCard = () => {
+const Dashborad = () => {
   return (
     <>
       <NavLogged />
@@ -17,7 +17,7 @@ const LinksCard = () => {
               <img src="./linkscard/search.png" alt="search" />
             </div>
             <div className="crad-link">
-              <NavLink exact to="/deshborad">
+              <NavLink exact to="/search">
                 Go Search
               </NavLink>
             </div>
@@ -57,4 +57,4 @@ const LinksCard = () => {
   );
 };
 
-export default LinksCard;
+export default Dashborad;

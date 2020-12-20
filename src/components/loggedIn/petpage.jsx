@@ -11,31 +11,71 @@ const Petpage = () => {
     {
       id: 1,
       name: "bob",
+      type: "Dog",
+      waight: "20Kg",
+      Height: "130sm",
       status: "foster",
+      color: "white",
+      Bio: "next time...",
+      hypoallergenic: "No",
+      breed: "Brenner Zannenhund",
+      dietary: "No",
       petImg: "./dogs/dog.jpg",
     },
     {
       id: 2,
       name: "Dj",
+      type: "Dog",
+      waight: "15Kg",
+      Height: "120sm",
       status: "adopted",
+      color: "white",
+      Bio: "love to by up",
+      hypoallergenic: "No",
+      breed: "Labrador",
+      dietary: "No",
       petImg: "./dogs/adorable.jpg",
     },
     {
       id: 3,
       name: "rambo",
-      status: "foster",
+      type: "Dog",
+      waight: "3Kg",
+      Height: "50sm",
+      status: "adopted",
+      color: "white",
+      Bio: "love to play",
+      hypoallergenic: "Yes",
+      breed: "english-bulldog",
+      dietary: "No milk",
       petImg: "./dogs/english-bulldog.jpg",
     },
     {
       id: 4,
       name: "dani",
+      type: "Dog",
+      waight: "2Kg",
+      Height: "50sm",
       status: "adopted",
+      color: "white",
+      Bio: "love to cuddle",
+      hypoallergenic: "No",
+      breed: "pug",
+      dietary: "No oil",
       petImg: "/dogs/pug1.jpg",
     },
     {
       id: 5,
       name: "shorty",
+      type: "Dog",
+      waight: "2Kg",
+      Height: "50sm",
       status: "foster",
+      color: "beige ",
+      Bio: "love to sleep",
+      hypoallergenic: "Yes",
+      breed: "pug",
+      dietary: "No meat",
       petImg: "./dogs/pug2.jpg",
     },
   ];
@@ -58,15 +98,15 @@ const Petpage = () => {
               </div>
               <div className="colume">
                 <strong>Type</strong>
-                <span>Dog</span>
+                <span>{pet[0].type}</span>
               </div>
               <div className="colume">
                 <strong>Waight</strong>
-                <span>12Kg</span>
+                <span>{pet[0].waight}</span>
               </div>
               <div className="colume">
                 <strong>Height</strong>
-                <span>120sm</span>
+                <span>{pet[0].Height}</span>
               </div>
             </div>
             <div className="row">
@@ -76,25 +116,25 @@ const Petpage = () => {
               </div>
               <div className="colume">
                 <strong>color</strong>
-                <span>Black</span>
+                <span>{pet[0].color}</span>
               </div>
               <div className="colume">
                 <strong>Bio</strong>
-                <span>"I love hotDogs"</span>
+                <span>{pet[0].Bio}</span>
               </div>
             </div>
             <div className="row">
               <div className="colume">
                 <strong>Hypoallergenic</strong>
-                <span>Yes</span>
+                <span>{pet[0].hypoallergenic}</span>
               </div>
               <div className="colume">
                 <strong> breed of animal</strong>
-                <span>Poodle</span>
+                <span>{pet[0].breed}</span>
               </div>
               <div className="colume">
                 <strong>dietary restrictions</strong>
-                <span>12Kg</span>
+                <span>{pet[0].dietary}</span>
               </div>
             </div>
 

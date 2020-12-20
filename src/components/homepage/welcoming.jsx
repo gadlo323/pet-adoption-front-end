@@ -24,6 +24,7 @@ const Welcoming = () => {
               of homeless pets in the future.
             </p>
             <img src="./dogs_cats.png" alt="catsandogs" />
+            <img src="./admin1.jpg" alt="admin1-img" />
           </div>
         </div>
       </section>

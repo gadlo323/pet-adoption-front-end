@@ -1,8 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Welcoming from "./components/homepage/welcoming";
+import Serach from "./components/globel/search";
 import "./App.css";
-import LinksCard from "./components/loggedIn/linksCard";
+import Dashborad from "./components/loggedIn/dashborad";
 import ProfileSettings from "./components/loggedIn/profilesettings";
 import Mypets from "./components/loggedIn/mypets";
 import Petpage from "./components/loggedIn/petpage";
@@ -14,7 +15,8 @@ function App() {
       <div className="App">
         <Switch>
           <Route exact path="/" component={Welcoming} />
-          <PrivateRoute exact path="/deshborad" component={LinksCard} />
+          <Route exact path="/search" component={Serach} />
+          <PrivateRoute exact path="/deshborad" component={Dashborad} />
           <PrivateRoute
             exact
             path="/ProfileSettings"
@@ -22,6 +24,7 @@ function App() {
           />
           <PrivateRoute exact path="/Mypets" component={Mypets} />
           <PrivateRoute exact path="/Petpage" component={Petpage} />
+          {/* <PrivateRoute exact path="/admin/addPet" component={AddPet} /> */}
         </Switch>
       </div>
     </Router>
