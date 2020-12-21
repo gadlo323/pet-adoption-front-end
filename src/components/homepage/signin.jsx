@@ -1,14 +1,25 @@
 import React, { useState } from "react";
+import { useAuth } from "../../conteaxts/AutoConteaxt";
 import Modal from "react-modal";
 import "./signin.css";
-
+import { useHistory } from "react-router-dom";
 Modal.setAppElement("#root");
 const Signin = ({ show, setModel }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const history = useHistory();
+  const { hendaleLogin } = useAuth();
 
   const closeModel = () => {
     setModel(!show);
+  };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const res = await hendaleLogin(email, password);
+    if (res) history.push("/deshborad");
+    setError("Password or Email are incorrect !");
   };
 
   return (
@@ -19,7 +30,7 @@ const Signin = ({ show, setModel }) => {
           <h1 className="title-signin">Sign In</h1>
         </div>
         <div className="main-model">
-          <form className="login-form">
+          <form className="login-form" onSubmit={onSubmit}>
             <input
               type="email"
               className="input-login"
@@ -37,6 +48,7 @@ const Signin = ({ show, setModel }) => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <span className="error-field-login">{error}</span>
             <button className="login-btn" type="submit">
               Sign In
             </button>

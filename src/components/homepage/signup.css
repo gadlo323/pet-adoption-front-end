@@ -50,7 +50,7 @@
   outline: none;
 }
 .input-field:focus {
-  border: 5px solid lightsalmon;
+  border: 2px solid lightsalmon;
 }
 .btn-Group {
   display: flex;
@@ -78,6 +78,10 @@
 .signup-btn:hover {
   background-color: #f03523;
 }
+.signup-btn:disabled {
+  background-color: lightgray;
+  color: black;
+}
 .popy-cover {
   max-width: 15rem;
 }
@@ -91,4 +95,7 @@
   font-weight: 700;
   margin-left: 3rem;
   word-break: break-all;
+}
+.notification {
+  font-size: 1.6rem;
 }

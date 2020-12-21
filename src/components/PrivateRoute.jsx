@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Route, Redirect } from "react-router-dom";
+import { useAuth } from "../conteaxts/AutoConteaxt";
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const currentUser = {
-    name: "isayas Gadlo",
-    email: "gadlo323@gmail.com",
-  };
+  const { currentUser } = useAuth();
   return (
     <Route
       {...rest}

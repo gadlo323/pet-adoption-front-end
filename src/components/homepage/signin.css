@@ -66,3 +66,9 @@
   outline: none;
   cursor: pointer;
 }
+.error-field-login {
+  font-size: 1.8rem;
+  color: red;
+  font-weight: 700;
+  padding: 1rem;
+}
