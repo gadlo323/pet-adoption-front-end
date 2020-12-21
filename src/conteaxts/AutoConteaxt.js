@@ -12,7 +12,7 @@ export const AutoProvider = ({ children }) => {
 
   //signUp
   const signupUser = async (data) => {
-    const url = "http://localhost:5000/adoption/signup";
+    const url = "http://localhost:5000/signup";
     try {
       const res = await axios.post(url, data);
       setCurrentUser(res.data);
@@ -23,7 +23,7 @@ export const AutoProvider = ({ children }) => {
   };
   //login
   const hendaleLogin = async (email, password) => {
-    const url = "http://localhost:5000/adoption/login";
+    const url = "http://localhost:5000/login";
     try {
       const res = await axios.post(url, { email: email, password: password });
       if (res.data) {
@@ -34,12 +34,22 @@ export const AutoProvider = ({ children }) => {
       console.log(error);
     }
   };
-  //logout
+  //update
+  const hendlaUpdate = async (data, id) => {
+    try {
+      const url = `http://localhost:5000/user/${id}`;
+      const res = await axios.put(url, data);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const value = {
     currentUser,
     signupUser,
     hendaleLogin,
+    hendlaUpdate,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

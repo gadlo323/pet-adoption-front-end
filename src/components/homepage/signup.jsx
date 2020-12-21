@@ -3,11 +3,13 @@ import { useForm } from "react-hook-form";
 import { GridLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import Modal from "react-modal";
+import { v4 as uuidv4 } from "uuid";
 import { useAuth } from "../../conteaxts/AutoConteaxt";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useHistory } from "react-router-dom";
 import "./signup.css";
+
 const override = css`
   position: fixed;
   top: 30%;
@@ -28,11 +30,12 @@ const Signup = ({ show, setModel }) => {
   const history = useHistory();
   const { signupUser } = useAuth();
 
-  const onSubmit = (data, e) => {
+  const onSubmit = async (data, e) => {
     e.preventDefault();
     setLoading(true);
     setDisabled(true);
     const formSign = {
+      uId: uuidv4(),
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -41,9 +44,9 @@ const Signup = ({ show, setModel }) => {
       repeatPassword: repatePass,
     };
     if (compearPass()) {
-      const res = signupUser(formSign);
+      const res = await signupUser(formSign);
       if (res) history.push("/deshborad");
-    } else notifyError("Password confirmation does not match password !");
+    } else notifyError("Password confirmation does not match to password !");
 
     setTimeout(() => {
       setLoading(false);

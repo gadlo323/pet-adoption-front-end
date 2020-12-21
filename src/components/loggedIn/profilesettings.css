@@ -45,15 +45,10 @@
   margin-right: 2rem;
   cursor: pointer;
 }
-.reset-btn {
-  padding: 0.5rem 2rem;
-  font-size: 1.8rem;
-  background-color: #254048;
-  color: white;
-  border: none;
-  border-radius: 1rem;
-  margin-right: 2rem;
-  cursor: pointer;
+.save-btn:disabled {
+  background-color: lightgray;
+  color: black;
+  cursor: not-allowed;
 }
 
 @media (max-width: 80rem) {

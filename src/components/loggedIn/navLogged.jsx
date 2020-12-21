@@ -7,7 +7,9 @@ const NavLogged = () => {
   const { currentUser } = useAuth();
   return (
     <header className="header">
-      <h2 className="welcome-user">Hello {currentUser.name}</h2>
+      <h2 className="welcome-user">
+        Hello {currentUser[0].firstName + " " + currentUser[0].lastName}
+      </h2>
       <button type="button" className="log-out">
         Log Out
       </button>
