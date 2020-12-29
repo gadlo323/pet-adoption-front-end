@@ -9,3 +9,6 @@
 .info p {
   font-size: 1.6rem !important;
 }
+.not-found {
+  max-width: 50rem;
+}

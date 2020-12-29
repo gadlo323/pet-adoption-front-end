@@ -136,14 +136,27 @@ export const AutoProvider = ({ children }) => {
 
   //serach by pet type
   const searchTypePet = async (query) => {
+    if (query) query = { type: query };
     try {
-      const res = await axios.get(`${baseUrl}/searchType/${query}`);
+      const res = await axios.post(`${baseUrl}/searchType`, query);
       if (res.data) {
         return res.data;
       }
     } catch (err) {
-      console.log(err.response.data);
-      // return err.response.data;
+      return err.response.data;
+    }
+  };
+
+  //serach Advance
+  const serachAdvance = async (data) => {
+    console.log(data);
+    try {
+      const res = await axios.post(`${baseUrl}/searchAdvance`, data);
+      if (res.data) {
+        return res.data;
+      }
+    } catch (err) {
+      return err.response.data;
     }
   };
 
@@ -157,6 +170,7 @@ export const AutoProvider = ({ children }) => {
     addPet,
     getPet,
     searchTypePet,
+    serachAdvance,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -14,7 +14,7 @@ const Serach = () => {
 
   useEffect(() => {
     const lastSearch = JSON.parse(localStorage.getItem("search"));
-    setList(lastSearch);
+    if (lastSearch) setList(lastSearch);
   }, []);
 
   const slides = [];
@@ -56,7 +56,13 @@ const Serach = () => {
           <Swiper spaceBetween={20} slidesPerView={3} navigation>
             {slides}
           </Swiper>
-          {list.length === 0 && <h1>No Result foud...</h1>}
+          {list.length === 0 && (
+            <img
+              className="not-found"
+              src="./data-notFound.jpg"
+              alt="no-data"
+            />
+          )}
         </div>
       </section>
       ;

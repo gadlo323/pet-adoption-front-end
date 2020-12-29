@@ -1,7 +1,17 @@
 import React, { useState } from "react";
 import { useAuth } from "../../conteaxts/AutoConteaxt";
+import { GridLoader } from "react-spinners";
+import { css } from "@emotion/react";
+import { ToastContainer, toast } from "react-toastify";
 import "./searchbar.css";
 
+const override = css`
+  position: fixed;
+  top: 45%;
+  left: 45%;
+  border-color: red;
+  z-index: 10;
+`;
 const advanceSearch = {
   status: "",
   height: "",
@@ -11,29 +21,55 @@ const advanceSearch = {
 };
 
 const Searchbar = ({ setList }) => {
+  const [loading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const [toggle, setToggle] = useState({
     state: false,
     text: "Advance",
   });
   const [advance, setAdvance] = useState(advanceSearch);
   const [search, setSearch] = useState("");
-  const { currentUser, searchTypePet } = useAuth();
+  const { currentUser, searchTypePet, serachAdvance } = useAuth();
 
-  const advSearch = (e) => {
+  const advSearch = async (e) => {
     e.preventDefault();
-    console.log(search);
+    setLoading(true);
+    setDisabled(true);
+    removeEmpty(advance);
+    const result = await serachAdvance(advance);
+    setList(result);
+    localStorage.setItem("search", JSON.stringify(result));
+    if (result.length < 1) notifyError("Oops information not found 🙅");
+    setTimeout(() => {
+      setLoading(false);
+      setDisabled(false);
+    }, 1000);
   };
   const simpleSearch = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setDisabled(true);
     const result = await searchTypePet(search);
     setList(result);
     localStorage.setItem("search", JSON.stringify(result));
+    if (result.length < 1) notifyError("Oops information not found 🙅");
+    setTimeout(() => {
+      setLoading(false);
+      setDisabled(false);
+    }, 1000);
   };
 
   const handleOnchange = (e) => {
     setAdvance({
+      ...advance,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const removeEmpty = (obj) => {
+    Object.keys(obj).forEach(
+      (key) => (obj[key] == null || obj[key] == "") && delete obj[key]
+    );
   };
 
   const onToogle = () => {
@@ -41,8 +77,21 @@ const Searchbar = ({ setList }) => {
       ? setToggle({ state: false, text: "Advance" })
       : setToggle({ state: true, text: "Basic" });
   };
+
+  const notifyError = (error) =>
+    toast.error(error, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
   return (
     <div className="serach-bar">
+      <ToastContainer className="notification" />
       <div className="forms">
         {toggle.state && (
           <div className="advance-search">
@@ -51,18 +100,19 @@ const Searchbar = ({ setList }) => {
                 name="status"
                 className="advance-input"
                 id="status-pet"
-                value={advance.status}
+                value={advance.status || "Available"}
                 onChange={handleOnchange}
               >
-                <option value="foster">foster</option>
-                <option value="adopted">adopted</option>
+                <option value="Available">Available</option>
+                <option value="Fostered">Fostered</option>
+                <option value="Adopted">Adopted</option>
               </select>
               <div className="input-group">
                 <input
                   name="type"
                   type="text"
                   className="advance-input"
-                  value={advance.type}
+                  value={advance.type || ""}
                   placeholder="Type"
                   onChange={handleOnchange}
                 />
@@ -70,7 +120,7 @@ const Searchbar = ({ setList }) => {
                   name="name"
                   type="text"
                   className="advance-input"
-                  value={advance.name}
+                  value={advance.name || ""}
                   placeholder="Name"
                   onChange={handleOnchange}
                 />
@@ -80,20 +130,24 @@ const Searchbar = ({ setList }) => {
                   name="height"
                   type="number"
                   className="advance-input"
-                  value={advance.height}
+                  value={advance.height || ""}
                   placeholder="Height"
                   onChange={handleOnchange}
                 />
                 <input
                   name="weight"
                   type="number"
+                  value={advance.weight || ""}
                   className="advance-input"
-                  value={advance.weight}
                   placeholder="Weight"
                   onChange={handleOnchange}
                 />
               </div>
-              <button className="advance-search-btn" type="submit">
+              <button
+                className="advance-search-btn"
+                type="submit"
+                disabled={disabled}
+              >
                 Advance Search
               </button>
             </form>
@@ -107,9 +161,8 @@ const Searchbar = ({ setList }) => {
               value={search}
               placeholder="Type of animal..."
               onChange={(e) => setSearch(e.target.value)}
-              required
             />
-            <button type="submit" className="search-btn">
+            <button type="submit" className="search-btn" disabled={disabled}>
               Search
             </button>
           </form>
@@ -119,6 +172,12 @@ const Searchbar = ({ setList }) => {
       <button type="button" className="toggle" onClick={onToogle}>
         {toggle.text}
       </button>
+      <GridLoader
+        css={override}
+        size={50}
+        color={"#162B32"}
+        loading={loading}
+      />
     </div>
   );
 };
