@@ -11,8 +11,10 @@ li {
   justify-content: space-between;
   min-height: 10vh;
   align-items: center;
-  color: black;
+  color: white;
   font-family: "Ranchers", cursive;
+  background-color: #162b32;
+  padding: 1rem;
 }
 
 .left-nav {
@@ -63,8 +65,9 @@ li {
   font-size: 1.6rem;
   margin-left: 1rem;
   background-color: transparent;
-  border: none;
-  border-radius: 2rem;
+  border: 1px solid white;
+  color: white;
+
   font-family: "Ranchers", cursive;
   cursor: pointer;
 }

@@ -1,140 +1,78 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useAuth } from "../../conteaxts/AutoConteaxt";
 import NavLogged from "./navLogged";
+import Navhome from "../homepage/navhome";
 import "./petpage.css";
 
-const Petpage = () => {
-  const query = new URLSearchParams(useLocation().search);
-  const id = query.get("id");
-  // console.log(id);
-  const pets = [
-    {
-      id: 1,
-      name: "bob",
-      type: "Dog",
-      waight: "20Kg",
-      Height: "130sm",
-      status: "foster",
-      color: "white",
-      Bio: "next time...",
-      hypoallergenic: "No",
-      breed: "Brenner Zannenhund",
-      dietary: "No",
-      petImg: "./dogs/dog.jpg",
-    },
-    {
-      id: 2,
-      name: "Dj",
-      type: "Dog",
-      waight: "15Kg",
-      Height: "120sm",
-      status: "adopted",
-      color: "white",
-      Bio: "love to by up",
-      hypoallergenic: "No",
-      breed: "Labrador",
-      dietary: "No",
-      petImg: "./dogs/adorable.jpg",
-    },
-    {
-      id: 3,
-      name: "rambo",
-      type: "Dog",
-      waight: "3Kg",
-      Height: "50sm",
-      status: "adopted",
-      color: "white",
-      Bio: "love to play",
-      hypoallergenic: "Yes",
-      breed: "english-bulldog",
-      dietary: "No milk",
-      petImg: "./dogs/english-bulldog.jpg",
-    },
-    {
-      id: 4,
-      name: "dani",
-      type: "Dog",
-      waight: "2Kg",
-      Height: "50sm",
-      status: "adopted",
-      color: "white",
-      Bio: "love to cuddle",
-      hypoallergenic: "No",
-      breed: "pug",
-      dietary: "No oil",
-      petImg: "/dogs/pug1.jpg",
-    },
-    {
-      id: 5,
-      name: "shorty",
-      type: "Dog",
-      waight: "2Kg",
-      Height: "50sm",
-      status: "foster",
-      color: "beige ",
-      Bio: "love to sleep",
-      hypoallergenic: "Yes",
-      breed: "pug",
-      dietary: "No meat",
-      petImg: "./dogs/pug2.jpg",
-    },
-  ];
-  const pet = pets.filter((item) => item.id == id);
+const Petpage = (props) => {
+  const { currentUser, getPet } = useAuth();
+  const [petData, setPetData] = useState({});
+
+  const getPetData = async () => {
+    const id = props.match.params.id;
+    const obj = await getPet(id);
+    if (obj) {
+      setPetData(obj);
+    }
+  };
+  useEffect(() => {
+    getPetData();
+  }, []);
 
   return (
     <>
-      <NavLogged />
+      {currentUser ? <NavLogged /> : <Navhome />}
       <section className="detalis">
         <div className="pet-detalis">
           <div className="pet-img">
-            <h2>Hey, I'm {pet[0].name}</h2>
-            <img src={pet[0].petImg} alt="" />
+            <h2>Hey, I'm {petData.name}</h2>
+            <img src={petData.image_url} alt={petData.image_name} />
           </div>
           <div className="pet-info">
             <div className="row">
               <div className="colume">
                 <strong>Name</strong>
-                <span>{pet[0].name}</span>
+                <span>{petData.name}</span>
               </div>
               <div className="colume">
                 <strong>Type</strong>
-                <span>{pet[0].type}</span>
+                <span>{petData.type}</span>
               </div>
               <div className="colume">
                 <strong>Waight</strong>
-                <span>{pet[0].waight}</span>
+                <span>{petData.weight}K.g</span>
               </div>
               <div className="colume">
                 <strong>Height</strong>
-                <span>{pet[0].Height}</span>
+                <span>{petData.height} c.m</span>
               </div>
             </div>
             <div className="row">
               <div className="colume">
                 <strong>Adoption Status</strong>
-                <span>{pet[0].status}</span>
+                <span>{petData.status}</span>
               </div>
               <div className="colume">
                 <strong>color</strong>
-                <span>{pet[0].color}</span>
+                <span>{petData.color}</span>
               </div>
               <div className="colume">
                 <strong>Bio</strong>
-                <span>{pet[0].Bio}</span>
+                <span>{petData.bio}</span>
               </div>
             </div>
             <div className="row">
               <div className="colume">
                 <strong>Hypoallergenic</strong>
-                <span>{pet[0].hypoallergenic}</span>
+                <span>{petData.hypoallergenic ? "Yes" : "No"}</span>
               </div>
               <div className="colume">
-                <strong> breed of animal</strong>
-                <span>{pet[0].breed}</span>
+                <strong> breed</strong>
+                <span>{petData.breed}</span>
               </div>
               <div className="colume">
                 <strong>dietary restrictions</strong>
-                <span>{pet[0].dietary}</span>
+                <span>{petData.dietary}</span>
               </div>
             </div>
 

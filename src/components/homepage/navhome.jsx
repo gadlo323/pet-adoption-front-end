@@ -20,7 +20,7 @@ const Navhome = () => {
       <div className="left-nav">
         <div className="logo">
           <h1 className="logo-name"> Pet Adoption</h1>
-          <img src="./dog.png" alt="" />
+          <img src="../dog.png" alt="" />
         </div>
         <div className="search-nav">
           <NavLink className="search-link" exact to="/search">

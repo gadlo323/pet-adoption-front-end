@@ -4,7 +4,6 @@ import { GridLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import { ToastContainer, toast } from "react-toastify";
 import { useAuth } from "../../conteaxts/AutoConteaxt";
-import { useHistory } from "react-router-dom";
 import NavLogged from "./navLogged";
 import "./profilesettings.css";
 
@@ -14,50 +13,37 @@ const override = css`
   left: 20%;
   border-color: red;
 `;
+const formFields = {
+  first_name: null,
+  last_name: null,
+  email: null,
+  phone: null,
+  password: null,
+  bio: null,
+};
 const ProfileSettings = () => {
-  const { currentUser, hendlaUpdate } = useAuth();
+  const { currentUser, hendlaUpdate, getUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [firstName, setFirstname] = useState("");
-  const [lastName, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [bio, setBio] = useState("");
+  const [formInfo, setFormInfo] = useState(formFields);
   const { register, handleSubmit, errors } = useForm();
-  const history = useHistory();
 
-  useEffect(() => {
-    setProfile();
-
-    return () => {
-      setProfile();
-    };
-  }, []);
-
-  const setProfile = () => {
-    setFirstname(currentUser[0].firstName);
-    setLastname(currentUser[0].lastName);
-    setEmail(currentUser[0].email);
-    setPhone(currentUser[0].phone);
-    setBio(currentUser[0].bio);
+  const handleChange = (e) => {
+    setFormInfo({
+      ...formInfo,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const onSubmit = async (data, e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setDisabled(true);
-    const updateData = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phone: phone,
-      bio: bio,
-    };
-    const res = await hendlaUpdate(updateData, currentUser[0].uId);
-    res
+    removeEmpty(formInfo);
+    const res = await hendlaUpdate(formInfo, currentUser.uId);
+    res === true
       ? notify("Your details have been successfully updated")
-      : notify("Error updating! Please try again later");
+      : notifyError(res);
 
     setTimeout(() => {
       setLoading(false);
@@ -65,8 +51,24 @@ const ProfileSettings = () => {
     }, 2000);
   };
 
+  const removeEmpty = (obj) => {
+    Object.keys(obj).forEach(
+      (key) => (obj[key] == null || obj[key] == "") && delete obj[key]
+    );
+  };
+
   const notify = (message) =>
     toast.success(message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  const notifyError = (message) =>
+    toast.error(message, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
@@ -84,34 +86,37 @@ const ProfileSettings = () => {
           <img src="./profile.jpg" alt="profile-men" />
         </div>
         <div className="settings-form">
-          <form className="profile-form" onSubmit={handleSubmit(onSubmit)}>
+          <form
+            className="profile-form"
+            onSubmit={(e) => handleSubmit(onSubmit(e))}
+          >
             <input
-              name="firstName"
+              name="first_name"
               type="text"
               className="profile-input"
               placeholder="First Name..."
+              value={formInfo.first_name || ""}
               minLength="2"
               maxLength="10"
-              value={firstName || ""}
-              onChange={(e) => setFirstname(e.target.value)}
+              onChange={handleChange}
             />
             <input
-              name="lastName"
+              name="last_name"
               type="text"
               className="profile-input"
               placeholder="Last Name..."
+              value={formInfo.last_name || ""}
               minLength="2"
               maxLength="12"
-              value={lastName || ""}
-              onChange={(e) => setLastname(e.target.value)}
+              onChange={handleChange}
             />
             <input
               name="email"
               type="text"
               className="profile-input"
               placeholder="Email"
-              value={email || ""}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formInfo.email || ""}
+              onChange={handleChange}
               ref={register({
                 pattern: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
               })}
@@ -126,8 +131,8 @@ const ProfileSettings = () => {
               type="text"
               className="profile-input"
               placeholder="Phone"
-              value={phone || ""}
-              onChange={(e) => setPhone(e.target.value)}
+              value={formInfo.phone || ""}
+              onChange={handleChange}
               ref={register({
                 pattern: /^((\+|00)\-?972?|0)(([23489]|[57]\d)\-?\d{7})$/gm,
               })}
@@ -142,8 +147,8 @@ const ProfileSettings = () => {
               type="password"
               className="profile-input"
               placeholder="Password"
-              value={password || ""}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formInfo.password || ""}
+              onChange={handleChange}
               ref={register({
                 pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
               })}
@@ -165,8 +170,8 @@ const ProfileSettings = () => {
               type="text"
               className="profile-input"
               placeholder="Short Bio.."
-              value={bio || ""}
-              onChange={(e) => setBio(e.target.value)}
+              value={formInfo.bio || ""}
+              onChange={handleChange}
             />
 
             <div className="brn-groupe">

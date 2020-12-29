@@ -18,7 +18,10 @@ const Signin = ({ show, setModel }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const res = await hendaleLogin(email, password);
-    if (res) history.push("/deshborad");
+    if (res) {
+      if (res.role == 1) history.push("/deshborad");
+      else if (res.role == 2) history.push("/admin/deshborad");
+    }
     setError("Password or Email are incorrect !");
   };
 

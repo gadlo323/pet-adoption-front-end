@@ -4,13 +4,15 @@ import { useAuth } from "../../conteaxts/AutoConteaxt";
 import "./navLogged.css";
 
 const NavLogged = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, logOut } = useAuth();
+
+  const onLogout = () => {
+    logOut();
+  };
   return (
     <header className="header">
-      <h2 className="welcome-user">
-        Hello {currentUser[0].firstName + " " + currentUser[0].lastName}
-      </h2>
-      <button type="button" className="log-out">
+      <h2 className="welcome-user">Hello {currentUser.name}</h2>
+      <button type="button" className="log-out" onClick={onLogout}>
         Log Out
       </button>
     </header>

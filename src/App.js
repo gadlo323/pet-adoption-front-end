@@ -9,6 +9,7 @@ import ProfileSettings from "./components/loggedIn/profilesettings";
 import Mypets from "./components/loggedIn/mypets";
 import Petpage from "./components/loggedIn/petpage";
 import PrivateRoute from "./components/PrivateRoute";
+import PrivateRouteAdmin from "./components/PrivateRouteAdmin";
 import Addpet from "./components/admin/addPet";
 import Admindashborad from "./components/admin/admindasborad";
 
@@ -20,6 +21,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Welcoming} />
             <Route exact path="/search" component={Serach} />
+            <Route exact path="/Petpage/:id" component={Petpage} />
             <PrivateRoute exact path="/deshborad" component={Dashborad} />
             <PrivateRoute
               exact
@@ -27,9 +29,9 @@ function App() {
               component={ProfileSettings}
             />
             <PrivateRoute exact path="/Mypets" component={Mypets} />
-            <PrivateRoute exact path="/Petpage" component={Petpage} />
-            <PrivateRoute exact path="/admin/addpet" component={Addpet} />
-            <PrivateRoute
+
+            <PrivateRouteAdmin exact path="/admin/addpet" component={Addpet} />
+            <PrivateRouteAdmin
               exact
               path="/admin/deshborad"
               component={Admindashborad}

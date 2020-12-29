@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 import { GridLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import Modal from "react-modal";
-import { v4 as uuidv4 } from "uuid";
 import { useAuth } from "../../conteaxts/AutoConteaxt";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,43 +17,46 @@ const override = css`
   border-color: red;
 `;
 Modal.setAppElement("#root");
+
+const formFields = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  password: "",
+  repatePass: "",
+};
 const Signup = ({ show, setModel }) => {
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const [firstName, setFirstname] = useState("");
-  const [lastName, setLastname] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [repatePass, setRepatePass] = useState("");
+  const [formInfo, setFormInfo] = useState(formFields);
   const { register, handleSubmit, errors } = useForm();
   const history = useHistory();
   const { signupUser } = useAuth();
 
-  const onSubmit = async (data, e) => {
+  const handleChange = (e) => {
+    setFormInfo({
+      ...formInfo,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setDisabled(true);
-    const formSign = {
-      uId: uuidv4(),
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phone: phone,
-      password: password,
-      repeatPassword: repatePass,
-    };
     if (compearPass()) {
-      const res = await signupUser(formSign);
-      if (res) history.push("/deshborad");
+      const res = await signupUser(formInfo);
+      if (res.error === 1) notifyError(res.dataSevere);
+      else {
+        history.push("/deshborad");
+      }
     } else notifyError("Password confirmation does not match to password !");
 
     setTimeout(() => {
       setLoading(false);
       setDisabled(false);
     }, 1000);
-
-    // console.log(formSign, data);
   };
 
   const closeModel = () => {
@@ -76,7 +79,7 @@ const Signup = ({ show, setModel }) => {
     patternPhone: "Invalid phone number",
   };
   const compearPass = () => {
-    return password === repatePass ? true : false;
+    return formInfo.password === formInfo.repatePass ? true : false;
   };
 
   return (
@@ -87,86 +90,89 @@ const Signup = ({ show, setModel }) => {
         <h1 className="title-sign">Sign Up</h1>
       </div>
       <div className="wrapeer-model">
-        <form className="model-form" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          className="model-form"
+          onSubmit={(e) => handleSubmit(onSubmit(e))}
+        >
           <div className="inputs-fields">
             <input
-              name="FirstName"
+              name="firstName"
               className="input-field"
               type="text"
               placeholder="First Name.."
-              onChange={(e) => setFirstname(e.target.value)}
+              onChange={handleChange}
               minLength="2"
               maxLength="10"
               required
             />
             <input
-              name="LastName"
+              name="lastName"
               className="input-field"
               type="text"
               placeholder="Last Name.."
-              onChange={(e) => setLastname(e.target.value)}
+              onChange={handleChange}
               minLength="2"
               maxLength="10"
               required
             />
           </div>
           <input
-            name="Email"
+            name="email"
             className="input-field"
             type="email"
             placeholder="exmple@exmple.com"
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleChange}
             required
             ref={register({
               pattern: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g,
             })}
           />
           <div className="error-box">
-            {errors.Email && errors.Email.type === "pattern" && (
+            {errors.email && errors.email.type === "pattern" && (
               <p className="error-field">{Errors.patternEmial}</p>
             )}
           </div>
           <input
-            name="Phone"
+            name="phone"
             className="input-field"
             type="number"
             placeholder="Phone Number"
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={handleChange}
             required
             ref={register({
               pattern: /^((\+|00)\-?972?|0)(([23489]|[57]\d)\-?\d{7})$/gm,
             })}
           />
           <div className="error-box">
-            {errors.Phone && errors.Phone.type === "pattern" && (
+            {errors.phone && errors.phone.type === "pattern" && (
               <p className="error-field">{Errors.patternPhone}</p>
             )}
           </div>
           <div className="inputs-fields">
             <input
-              name="Password"
+              name="password"
               className="input-field"
               type="password"
               placeholder="Password.."
               autoComplete="on"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChange}
               required
               ref={register({
                 pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
               })}
             />
             <input
-              name="RepeatPassword"
+              name="repatePass"
               className="input-field"
               type="password"
               placeholder="confirm password..."
               autoComplete="on"
-              onChange={(e) => setRepatePass(e.target.value)}
+              onChange={handleChange}
               required
             />
           </div>
           <div className="error-box">
-            {errors.Password && errors.Password.type === "pattern" && (
+            {errors.password && errors.password.type === "pattern" && (
               <p className="error-field">
                 Password must contain : <br />
                 - at least 8 characters <br />

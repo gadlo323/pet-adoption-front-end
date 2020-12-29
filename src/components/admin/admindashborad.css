@@ -8,4 +8,6 @@
 
 .add-pet-link {
   font-size: 2rem;
+  color: black;
+  border: 1px solid black;
 }

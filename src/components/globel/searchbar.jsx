@@ -1,27 +1,39 @@
 import React, { useState } from "react";
+import { useAuth } from "../../conteaxts/AutoConteaxt";
 import "./searchbar.css";
-const Searchbar = () => {
+
+const advanceSearch = {
+  status: "",
+  height: "",
+  weight: "",
+  type: "",
+  name: "",
+};
+
+const Searchbar = ({ setList }) => {
   const [toggle, setToggle] = useState({
     state: false,
     text: "Advance",
   });
-  const [status, setStatus] = useState("");
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
-  const [type, setType] = useState("");
-  const [name, setName] = useState("");
+  const [advance, setAdvance] = useState(advanceSearch);
   const [search, setSearch] = useState("");
-  // const [advanceSearch, setAdvanceSearch] = useState({
-  //   status: "",
-  //   height: "",
-  //   weight: "",
-  //   type: "",
-  //   name: "",
-  // });
+  const { currentUser, searchTypePet } = useAuth();
 
-  const onSubmit = (e) => {
+  const advSearch = (e) => {
     e.preventDefault();
     console.log(search);
+  };
+  const simpleSearch = async (e) => {
+    e.preventDefault();
+    const result = await searchTypePet(search);
+    setList(result);
+    localStorage.setItem("search", JSON.stringify(result));
+  };
+
+  const handleOnchange = (e) => {
+    setAdvance({
+      [e.target.name]: e.target.value,
+    });
   };
 
   const onToogle = () => {
@@ -29,29 +41,18 @@ const Searchbar = () => {
       ? setToggle({ state: false, text: "Advance" })
       : setToggle({ state: true, text: "Basic" });
   };
-  const printform = (e) => {
-    e.preventDefault();
-    const dataSearch = {
-      status: status,
-      height: height,
-      weight: weight,
-      type: type,
-      name: name,
-    };
-    // console.log(dataSearch);
-  };
   return (
     <div className="serach-bar">
       <div className="forms">
         {toggle.state && (
           <div className="advance-search">
-            <form className="form-search-advance" onSubmit={printform}>
+            <form className="form-search-advance" onSubmit={advSearch}>
               <select
                 name="status"
                 className="advance-input"
                 id="status-pet"
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
+                value={advance.status}
+                onChange={handleOnchange}
               >
                 <option value="foster">foster</option>
                 <option value="adopted">adopted</option>
@@ -61,35 +62,35 @@ const Searchbar = () => {
                   name="type"
                   type="text"
                   className="advance-input"
-                  value={type}
+                  value={advance.type}
                   placeholder="Type"
-                  onChange={(e) => setType(e.target.value)}
+                  onChange={handleOnchange}
                 />
                 <input
                   name="name"
                   type="text"
                   className="advance-input"
-                  value={name}
+                  value={advance.name}
                   placeholder="Name"
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={handleOnchange}
                 />
               </div>
               <div className="input-group">
                 <input
                   name="height"
-                  type="text"
+                  type="number"
                   className="advance-input"
-                  value={height}
+                  value={advance.height}
                   placeholder="Height"
-                  onChange={(e) => setHeight(e.target.value)}
+                  onChange={handleOnchange}
                 />
                 <input
                   name="weight"
-                  type="text"
+                  type="number"
                   className="advance-input"
-                  value={weight}
+                  value={advance.weight}
                   placeholder="Weight"
-                  onChange={(e) => setWeight(e.target.value)}
+                  onChange={handleOnchange}
                 />
               </div>
               <button className="advance-search-btn" type="submit">
@@ -99,13 +100,14 @@ const Searchbar = () => {
           </div>
         )}
         {!toggle.state && (
-          <form className="form-search" onSubmit={onSubmit}>
+          <form className="form-search" onSubmit={simpleSearch}>
             <input
               type="search"
               className="search-input"
               value={search}
               placeholder="Type of animal..."
               onChange={(e) => setSearch(e.target.value)}
+              required
             />
             <button type="submit" className="search-btn">
               Search

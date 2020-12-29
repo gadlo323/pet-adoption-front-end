@@ -6,6 +6,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: row-reverse;
+  flex-wrap: wrap;
 }
 
 .add-pet-img img {
@@ -46,4 +47,37 @@
 }
 .add-pet-reset {
   background-color: lightcoral;
+}
+.input-group {
+  display: flex;
+}
+.select-input {
+  display: flex;
+  flex-direction: column;
+}
+.select-input select {
+  padding: 0.5rem 0rem;
+}
+.select-input label {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 0.2rem;
+}
+.file-show {
+  align-items: center;
+}
+.file-show input {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.file-show img {
+  max-width: 20rem;
+  border-radius: 100%;
+  padding: 2rem;
+}
+
+@media (max-width: 80rem) {
+  .add-pet-img {
+    display: none;
+  }
 }
