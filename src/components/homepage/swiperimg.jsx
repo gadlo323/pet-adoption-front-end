@@ -2,9 +2,9 @@ import React from "react";
 import "./swiperimg.css";
 import "swiper/swiper-bundle.css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation } from "swiper";
+import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 
-SwiperCore.use(Navigation);
+SwiperCore.use(Navigation, Pagination, Autoplay);
 
 const Swiperimg = () => {
   const img = [
@@ -32,6 +32,8 @@ const Swiperimg = () => {
         spaceBetween={20}
         slidesPerView={4}
         navigation
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 1000 }}
       >
         {slides}
       </Swiper>

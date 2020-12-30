@@ -5,17 +5,19 @@ import NavLogged from "../loggedIn/navLogged";
 import { useAuth } from "../../conteaxts/AutoConteaxt";
 import "swiper/swiper-bundle.css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation } from "swiper";
+import SwiperCore, { Navigation, Pagination, Autoplay } from "swiper";
 import Searchbar from "./searchbar";
 import "./search.css";
+// install Swiper components
+SwiperCore.use([Navigation, Pagination, Autoplay]);
 const Serach = () => {
   const { currentUser } = useAuth();
   const [list, setList] = useState([]);
 
-  useEffect(() => {
-    const lastSearch = JSON.parse(localStorage.getItem("search"));
-    if (lastSearch) setList(lastSearch);
-  }, []);
+  // useEffect(() => {
+  //   const lastSearch = JSON.parse(localStorage.getItem("search"));
+  //   if (lastSearch) setList(lastSearch);
+  // }, []);
 
   const slides = [];
   for (let i = 0; i < list.length; i++) {
@@ -53,7 +55,13 @@ const Serach = () => {
       <section className="search-page">
         <Searchbar setList={setList} />
         <div className="crads-pets">
-          <Swiper spaceBetween={20} slidesPerView={3} navigation>
+          <Swiper
+            spaceBetween={20}
+            slidesPerView={3}
+            navigation
+            pagination={{ clickable: true }}
+            autoplay={{ delay: 1000 }}
+          >
             {slides}
           </Swiper>
           {list.length === 0 && (

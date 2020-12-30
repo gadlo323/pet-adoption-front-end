@@ -31,32 +31,28 @@ const Searchbar = ({ setList }) => {
   const [search, setSearch] = useState("");
   const { currentUser, searchTypePet, serachAdvance } = useAuth();
 
-  const advSearch = async (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setDisabled(true);
-    removeEmpty(advance);
-    const result = await serachAdvance(advance);
+    onSendForm(true);
+    const searchType = e.nativeEvent.submitter.name;
+    if (searchType === "advance") {
+      removeEmpty(advance);
+      var result = await serachAdvance(advance);
+    } else {
+      var result = await searchTypePet(search);
+    }
     setList(result);
-    localStorage.setItem("search", JSON.stringify(result));
+    // localStorage.setItem("search", JSON.stringify(result));
     if (result.length < 1) notifyError("Oops information not found 🙅");
+
     setTimeout(() => {
-      setLoading(false);
-      setDisabled(false);
+      onSendForm(false);
     }, 1000);
   };
-  const simpleSearch = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setDisabled(true);
-    const result = await searchTypePet(search);
-    setList(result);
-    localStorage.setItem("search", JSON.stringify(result));
-    if (result.length < 1) notifyError("Oops information not found 🙅");
-    setTimeout(() => {
-      setLoading(false);
-      setDisabled(false);
-    }, 1000);
+
+  const onSendForm = (bool) => {
+    setLoading(bool);
+    setDisabled(bool);
   };
 
   const handleOnchange = (e) => {
@@ -95,7 +91,7 @@ const Searchbar = ({ setList }) => {
       <div className="forms">
         {toggle.state && (
           <div className="advance-search">
-            <form className="form-search-advance" onSubmit={advSearch}>
+            <form className="form-search-advance" onSubmit={handleSearch}>
               <select
                 name="status"
                 className="advance-input"
@@ -144,6 +140,7 @@ const Searchbar = ({ setList }) => {
                 />
               </div>
               <button
+                name="advance"
                 className="advance-search-btn"
                 type="submit"
                 disabled={disabled}
@@ -154,7 +151,7 @@ const Searchbar = ({ setList }) => {
           </div>
         )}
         {!toggle.state && (
-          <form className="form-search" onSubmit={simpleSearch}>
+          <form className="form-search" onSubmit={handleSearch}>
             <input
               type="search"
               className="search-input"
@@ -162,7 +159,12 @@ const Searchbar = ({ setList }) => {
               placeholder="Type of animal..."
               onChange={(e) => setSearch(e.target.value)}
             />
-            <button type="submit" className="search-btn" disabled={disabled}>
+            <button
+              name="simpleSearch"
+              type="submit"
+              className="search-btn"
+              disabled={disabled}
+            >
               Search
             </button>
           </form>

@@ -36,9 +36,6 @@ export const AutoProvider = ({ children }) => {
 
   useEffect(() => {
     userActive();
-    return () => {
-      userActive();
-    };
   }, []);
 
   //signUp
@@ -149,7 +146,6 @@ export const AutoProvider = ({ children }) => {
 
   //serach Advance
   const serachAdvance = async (data) => {
-    console.log(data);
     try {
       const res = await axios.post(`${baseUrl}/searchAdvance`, data);
       if (res.data) {
@@ -157,6 +153,31 @@ export const AutoProvider = ({ children }) => {
       }
     } catch (err) {
       return err.response.data;
+    }
+  };
+
+  //adopte or foster
+  const adopteOrFoster = async (data, type) => {
+    try {
+      const res = await axios.post(
+        `${baseUrl}/adopteFoster/${currentUser.uId}`,
+        { data: data, type: type }
+      );
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  //save pet
+  const savePet = async (data) => {
+    try {
+      const res = await axios.post(
+        `${baseUrl}/savePet/${currentUser.uId}`,
+        data
+      );
+      return res.data;
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -171,6 +192,8 @@ export const AutoProvider = ({ children }) => {
     getPet,
     searchTypePet,
     serachAdvance,
+    adopteOrFoster,
+    savePet,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

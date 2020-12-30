@@ -1,28 +1,79 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../conteaxts/AutoConteaxt";
+import { GridLoader } from "react-spinners";
+import { css } from "@emotion/react";
+import { ToastContainer, toast } from "react-toastify";
 import NavLogged from "./navLogged";
 import Navhome from "../homepage/navhome";
 import "./petpage.css";
 
+const override = css`
+  position: fixed;
+  top: 40%;
+  left: 40%;
+  border-color: red;
+`;
 const Petpage = (props) => {
-  const { currentUser, getPet } = useAuth();
+  const { currentUser, getPet, adopteOrFoster, savePet } = useAuth();
+  const [loading, setLoading] = useState(false);
   const [petData, setPetData] = useState({});
+  let mounted = true;
 
   const getPetData = async () => {
     const id = props.match.params.id;
-    const obj = await getPet(id);
-    if (obj) {
+    if (mounted) {
+      const obj = await getPet(id);
       setPetData(obj);
     }
   };
+
   useEffect(() => {
     getPetData();
+
+    return () => {
+      mounted = false;
+    };
   }, []);
+
+  const adopteFoster = async (e) => {
+    setLoading(true);
+    const type = e.target.name;
+    const result = await adopteOrFoster(petData, type);
+    if (result) {
+      notify(`The pet was ${type} successfully`);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1500);
+    }
+  };
+
+  const save = async (e) => {
+    setLoading(true);
+    const result = await savePet(petData);
+    if (result) {
+      notify(`The pet was saved successfully`);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1500);
+    }
+  };
+
+  const notify = (message) =>
+    toast.success(message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
 
   return (
     <>
       {currentUser ? <NavLogged /> : <Navhome />}
       <section className="detalis">
+        <ToastContainer className="notification" />
         <div className="pet-detalis">
           <div className="pet-img">
             <h2>Hey, I'm {petData.name}</h2>
@@ -76,19 +127,49 @@ const Petpage = (props) => {
               </div>
             </div>
 
-            <div className="pet-btns">
-              <button type="button" className="pet-btn save">
-                Save
-              </button>
-              <button type="button" className="pet-btn Adopet">
-                Adopet
-              </button>
-              <button type="button" className="pet-btn return">
-                Return peth
-              </button>
-            </div>
+            {currentUser && (
+              <div className="pet-btns">
+                {!(petData.status === "Adopted") && (
+                  <button
+                    name="Adopted"
+                    type="button"
+                    className="pet-btn Adopet"
+                    onClick={adopteFoster}
+                  >
+                    Adopet
+                  </button>
+                )}
+                {!(petData.status === "Fostered") &&
+                  petData.status !== "Adopted" && (
+                    <button
+                      name="Fostered"
+                      type="button"
+                      className="pet-btn return"
+                      onClick={adopteFoster}
+                    >
+                      Foster
+                    </button>
+                  )}
+                {petData.status === "Available" && (
+                  <button
+                    name="save"
+                    type="button"
+                    className="pet-btn save"
+                    onClick={save}
+                  >
+                    Save
+                  </button>
+                )}
+              </div>
+            )}
           </div>
         </div>
+        <GridLoader
+          css={override}
+          size={40}
+          color={"#123abc"}
+          loading={loading}
+        />
       </section>
     </>
   );
