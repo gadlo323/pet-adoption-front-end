@@ -131,23 +131,10 @@ export const AutoProvider = ({ children }) => {
     }
   };
 
-  //serach by pet type
-  const searchTypePet = async (query) => {
-    if (query) query = { type: query };
-    try {
-      const res = await axios.post(`${baseUrl}/searchType`, query);
-      if (res.data) {
-        return res.data;
-      }
-    } catch (err) {
-      return err.response.data;
-    }
-  };
-
   //serach Advance
   const serachAdvance = async (data) => {
     try {
-      const res = await axios.post(`${baseUrl}/searchAdvance`, data);
+      const res = await axios.post(`${baseUrl}/search`, data);
       if (res.data) {
         return res.data;
       }
@@ -192,7 +179,7 @@ export const AutoProvider = ({ children }) => {
   //return pet
   const returnPet = async (id) => {
     try {
-      const res = await axios.delete(
+      const res = await axios.post(
         `${baseUrl}/returnPet/?uId=${currentUser.uId}&petid=${id}`
       );
       return res.data;
@@ -210,7 +197,6 @@ export const AutoProvider = ({ children }) => {
     getUser,
     addPet,
     getPet,
-    searchTypePet,
     serachAdvance,
     adopteOrFoster,
     savePet,

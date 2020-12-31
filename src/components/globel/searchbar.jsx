@@ -29,7 +29,7 @@ const Searchbar = ({ setList }) => {
   });
   const [advance, setAdvance] = useState(advanceSearch);
   const [search, setSearch] = useState("");
-  const { currentUser, searchTypePet, serachAdvance } = useAuth();
+  const { currentUser, serachAdvance } = useAuth();
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -39,7 +39,9 @@ const Searchbar = ({ setList }) => {
       removeEmpty(advance);
       var result = await serachAdvance(advance);
     } else {
-      var result = await searchTypePet(search);
+      if (!search) var query = {};
+      else var query = { type: search };
+      var result = await serachAdvance(query);
     }
     setList(result);
     // localStorage.setItem("search", JSON.stringify(result));
