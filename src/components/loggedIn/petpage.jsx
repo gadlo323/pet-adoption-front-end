@@ -14,15 +14,14 @@ const override = css`
   border-color: red;
 `;
 const Petpage = (props) => {
-  const { currentUser, getPet, adopteOrFoster, savePet } = useAuth();
+  const { currentUser, getPet, adopteOrFoster, savePet, returnPet } = useAuth();
   const [loading, setLoading] = useState(false);
   const [petData, setPetData] = useState({});
   let mounted = true;
-
+  const petId = props.match.params.id;
   const getPetData = async () => {
-    const id = props.match.params.id;
     if (mounted) {
-      const obj = await getPet(id);
+      const obj = await getPet(petId);
       setPetData(obj);
     }
   };
@@ -56,6 +55,12 @@ const Petpage = (props) => {
         setLoading(false);
       }, 1500);
     }
+  };
+
+  const restorePet = async () => {
+    const result = await returnPet(petId);
+    if (result) notify("The pet was successfully returned to the shelter");
+    else notify("Oops something was Wrong ");
   };
 
   const notify = (message) =>
@@ -166,7 +171,7 @@ const Petpage = (props) => {
                       name="Fostered"
                       type="button"
                       className="pet-btn return"
-                      onClick={adopteFoster}
+                      onClick={restorePet}
                     >
                       return Pet
                     </button>
@@ -176,7 +181,7 @@ const Petpage = (props) => {
                     name="Fostered"
                     type="button"
                     className="pet-btn return"
-                    onClick={adopteFoster}
+                    onClick={restorePet}
                   >
                     return Pet
                   </button>

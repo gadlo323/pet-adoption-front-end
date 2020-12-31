@@ -180,10 +180,21 @@ export const AutoProvider = ({ children }) => {
       console.log(err);
     }
   };
-  //save pet
-  const getPets = async (data) => {
+  //get user owned pets/saved
+  const getPets = async () => {
     try {
       const res = await axios.get(`${baseUrl}/myPets/${currentUser.uId}`);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  //return pet
+  const returnPet = async (id) => {
+    try {
+      const res = await axios.delete(
+        `${baseUrl}/returnPet/?uId=${currentUser.uId}&petid=${id}`
+      );
       return res.data;
     } catch (err) {
       console.log(err);
@@ -204,6 +215,7 @@ export const AutoProvider = ({ children }) => {
     adopteOrFoster,
     savePet,
     getPets,
+    returnPet,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
