@@ -7,6 +7,24 @@
   justify-content: center;
   align-items: center;
 }
+.pets {
+  font-size: 2rem;
+  display: flex;
+  align-self: flex-start;
+  padding: 0.5rem 5rem;
+  margin: 3rem;
+  border-radius: 2rem;
+  border: none;
+  outline: none;
+  color: white;
+  cursor: pointer;
+}
+.save-btn {
+  background-color: #f5a462;
+}
+.owned-btn {
+  background-color: #e86f51;
+}
 .no-pets {
   display: flex;
   justify-content: center;
@@ -23,9 +41,9 @@
 .card-pet {
   display: flex;
   height: 60vh;
+  width: 100%;
   flex-direction: column;
   align-items: center;
-  background-color: #d14852;
 }
 .pet-img img {
   width: 100%;

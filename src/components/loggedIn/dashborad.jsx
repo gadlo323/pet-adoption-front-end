@@ -46,7 +46,7 @@ const Dashborad = () => {
               <img src="./linkscard/myPets.png" alt="dogs" />
             </div>
             <div className="crad-link">
-              <NavLink exact to="/Mypets">
+              <NavLink exact to="/mypets">
                 Go to my pet
               </NavLink>
             </div>

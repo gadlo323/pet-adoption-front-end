@@ -28,7 +28,7 @@ function App() {
               path="/ProfileSettings"
               component={ProfileSettings}
             />
-            <PrivateRoute exact path="/Mypets" component={Mypets} />
+            <PrivateRoute exact path="/mypets" component={Mypets} />
 
             <PrivateRouteAdmin exact path="/admin/addpet" component={Addpet} />
             <PrivateRouteAdmin

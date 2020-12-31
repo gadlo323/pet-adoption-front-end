@@ -180,6 +180,15 @@ export const AutoProvider = ({ children }) => {
       console.log(err);
     }
   };
+  //save pet
+  const getPets = async (data) => {
+    try {
+      const res = await axios.get(`${baseUrl}/myPets/${currentUser.uId}`);
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const value = {
     currentUser,
@@ -194,6 +203,7 @@ export const AutoProvider = ({ children }) => {
     serachAdvance,
     adopteOrFoster,
     savePet,
+    getPets,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -130,14 +130,24 @@ const Petpage = (props) => {
             {currentUser && (
               <div className="pet-btns">
                 {!(petData.status === "Adopted") && (
-                  <button
-                    name="Adopted"
-                    type="button"
-                    className="pet-btn Adopet"
-                    onClick={adopteFoster}
-                  >
-                    Adopet
-                  </button>
+                  <div>
+                    <button
+                      name="Adopted"
+                      type="button"
+                      className="pet-btn Adopet"
+                      onClick={adopteFoster}
+                    >
+                      Adopet
+                    </button>
+                    <button
+                      name="save"
+                      type="button"
+                      className="pet-btn save"
+                      onClick={save}
+                    >
+                      Save
+                    </button>
+                  </div>
                 )}
                 {!(petData.status === "Fostered") &&
                   petData.status !== "Adopted" && (
@@ -150,7 +160,28 @@ const Petpage = (props) => {
                       Foster
                     </button>
                   )}
-                {petData.status === "Available" && (
+                {petData.status === "Fostered" ||
+                  (petData.status === "Adopted" && (
+                    <button
+                      name="Fostered"
+                      type="button"
+                      className="pet-btn return"
+                      onClick={adopteFoster}
+                    >
+                      return Pet
+                    </button>
+                  ))}
+                {petData.status === "Fostered" && (
+                  <button
+                    name="Fostered"
+                    type="button"
+                    className="pet-btn return"
+                    onClick={adopteFoster}
+                  >
+                    return Pet
+                  </button>
+                )}
+                {/* {petData.status === "Available" && (
                   <button
                     name="save"
                     type="button"
@@ -159,7 +190,7 @@ const Petpage = (props) => {
                   >
                     Save
                   </button>
-                )}
+                )} */}
               </div>
             )}
           </div>
