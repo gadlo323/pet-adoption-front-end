@@ -91,16 +91,27 @@ export const AutoProvider = ({ children }) => {
     }
   };
 
-  //getUser
+  //getUser full
   const getUser = async (uId) => {
+    try {
+      const res = await axios.get(`${baseUrl}/userFull/${uId}`);
+      const data = res.data;
+      return data;
+    } catch (err) {
+      return err.response.data;
+    }
+  };
+  //getUser basic info
+  const userInfo = async (uId) => {
     try {
       const res = await axios.get(`${baseUrl}/user/${uId}`);
       const data = res.data;
       return data;
     } catch (err) {
-      console.log(err);
+      return err.response.data;
     }
   };
+
   //addPet to db
   const addPet = async (content) => {
     const token = JSON.parse(localStorage.getItem("token"));
@@ -135,6 +146,20 @@ export const AutoProvider = ({ children }) => {
   const serachAdvance = async (data) => {
     try {
       const res = await axios.post(`${baseUrl}/search`, data);
+      if (res.data) {
+        return res.data;
+      }
+    } catch (err) {
+      return err.response.data;
+    }
+  };
+
+  const Pets = async (page, perPage) => {
+    try {
+      const res = await axios.post(
+        `${baseUrl}/search/?page=${page}&per_page=${perPage}`,
+        {}
+      );
       if (res.data) {
         return res.data;
       }
@@ -179,6 +204,7 @@ export const AutoProvider = ({ children }) => {
       return err.response.data;
     }
   };
+
   //get user owned pets/saved
   const getPets = async () => {
     try {
@@ -188,6 +214,23 @@ export const AutoProvider = ({ children }) => {
       return err.response.data;
     }
   };
+
+  //get all users
+  const getUsers = async () => {
+    try {
+      const token = JSON.parse(localStorage.getItem("token"));
+      let config = {
+        headers: {
+          authorization: "Bearer " + token,
+        },
+      };
+      const res = await axios.get(`${baseUrl}/getusers`, config);
+      return res.data;
+    } catch (err) {
+      return err.response.data;
+    }
+  };
+
   //return pet
   const returnPet = async (id) => {
     try {
@@ -207,6 +250,7 @@ export const AutoProvider = ({ children }) => {
     logOut,
     hendlaUpdate,
     getUser,
+    userInfo,
     addPet,
     getPet,
     serachAdvance,
@@ -215,6 +259,8 @@ export const AutoProvider = ({ children }) => {
     returnsavePet,
     getPets,
     returnPet,
+    getUsers,
+    Pets,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

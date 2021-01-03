@@ -1,0 +1,39 @@
+.user-info {
+  width: 90%;
+  margin: auto;
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-around;
+}
+.profile-card {
+  background-color: tomato;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+.profile-card img {
+  max-width: 15rem;
+}
+.row-user {
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+}
+.row-user p {
+  line-height: 5.6rem;
+}
+.pets-list {
+  width: 50%;
+}
+.pet-row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 3rem;
+  font-size: 2rem;
+  background-color: teal;
+  margin-bottom: 1rem;
+}

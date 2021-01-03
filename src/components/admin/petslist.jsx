@@ -1,55 +1,78 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DataTable from "react-data-table-component";
-import data from "./usersListMock.json";
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../../conteaxts/AutoConteaxt";
 
+import "./petslist.css";
 const Petslist = () => {
   const [loading, setLoading] = useState(false);
   const [totalRows, setTotalRows] = useState(0);
   const [perPage, setPerPage] = useState(10);
+  const [listPets, setLisetPets] = useState([]);
+  const { Pets } = useAuth();
+
+  const pets = async (page) => {
+    const obj = await Pets(page, perPage);
+    setLisetPets(obj.result);
+    setTotalRows(obj.data.length);
+  };
+
+  useEffect(() => {
+    pets(1);
+  }, []);
+
+  const handlePerRowsChange = async (newPerPage, page) => {
+    const obj = await Pets(page, newPerPage);
+    setLisetPets(obj.result);
+    setPerPage(newPerPage);
+  };
+  const handlePageChange = async (page) => {
+    const obj = await Pets(page, perPage);
+    setLisetPets(obj.result);
+  };
+
   const columns = [
     {
-      name: "User Id",
-      selector: "id",
+      name: "Name",
+      selector: "name",
       sortable: true,
     },
     {
-      name: "First Name",
-      selector: "first_name",
+      name: "Type",
+      selector: "type",
       sortable: true,
-      right: true,
     },
     {
-      name: "Last Name",
-      selector: "last_name",
+      name: "Status",
+      selector: "status",
       sortable: true,
-      right: true,
     },
     {
-      name: "Email",
-      selector: "email",
-      sortable: true,
-      right: true,
+      selector: "image_url",
+      cell: (row) => <img className="pet-img" src={row.image_url} />,
     },
     {
-      name: "Gender",
-      selector: "gender",
-      sortable: true,
-      right: true,
+      ignoreRowClick: true,
+      cell: (row) => (
+        <NavLink className="more-info" exact to={`/admin/addpet/${row._id}`}>
+          edit
+        </NavLink>
+      ),
     },
   ];
 
   return (
     <DataTable
       className="my-table"
-      title="Users List"
+      title="pets List"
       columns={columns}
-      data={data}
-      //   progressPending={loading}
+      data={listPets}
+      progressPending={loading}
       pagination
       paginationServer
-      paginationTotalRows={data.length}
-      //   onChangeRowsPerPage={handlePerRowsChange}
-      //   onChangePage={handlePageChange}
+      paginationTotalRows={totalRows}
+      onChangeRowsPerPage={handlePerRowsChange}
+      onChangePage={handlePageChange}
     />
   );
 };

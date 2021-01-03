@@ -8,6 +8,7 @@ import Dashborad from "./components/loggedIn/dashborad";
 import ProfileSettings from "./components/loggedIn/profilesettings";
 import Mypets from "./components/loggedIn/mypets";
 import Petpage from "./components/loggedIn/petpage";
+import UserInfo from "./components/admin/userInfo";
 import PrivateRoute from "./components/PrivateRoute";
 import PrivateRouteAdmin from "./components/PrivateRouteAdmin";
 import Addpet from "./components/admin/addPet";
@@ -31,6 +32,11 @@ function App() {
             <PrivateRoute exact path="/mypets" component={Mypets} />
 
             <PrivateRouteAdmin exact path="/admin/addpet" component={Addpet} />
+            <PrivateRouteAdmin
+              exact
+              path="/userinfo/:id"
+              component={UserInfo}
+            />
             <PrivateRouteAdmin
               exact
               path="/admin/deshborad"
