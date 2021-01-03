@@ -4,11 +4,12 @@ import NavLogged from "./navLogged";
 import "swiper/swiper-bundle.css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useAuth } from "../../conteaxts/AutoConteaxt";
+import { ToastContainer, toast } from "react-toastify";
 import SwiperCore, { Navigation } from "swiper";
 import "./mypets.css";
 SwiperCore.use(Navigation);
 const Mypets = () => {
-  const { currentUser, getPets } = useAuth();
+  const { currentUser, getPets, returnsavePet } = useAuth();
   const [onPets, setOnPets] = useState([]);
   const [savedPets, setSavedPets] = useState([]);
   const [toggle, setToggle] = useState({
@@ -23,18 +24,34 @@ const Mypets = () => {
     setToggle({ praesnt: obj.adopted });
     setSavedPets(obj.saved);
   };
+
   useEffect(() => {
     myPets();
   }, []);
+
+  const removeSavePet = async (e) => {
+    const petId = e.target.id;
+    const result = await returnsavePet(petId);
+    if (result) notify("The pet was successfully removed");
+  };
 
   const onToogle = () => {
     toggle.state
       ? setToggle({ state: false, text: "Saved", praesnt: onPets })
       : setToggle({ state: true, text: "Ownes", praesnt: savedPets });
   };
+
+  const notify = (message) =>
+    toast.success(message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   const slides = [];
-  {
-  }
   for (let i = 0; i < toggle.praesnt.length; i++) {
     slides.push(
       <SwiperSlide key={`img${i}`}>
@@ -50,6 +67,15 @@ const Mypets = () => {
               <div className="info">
                 <p>name : {toggle.praesnt[i].name}</p>
                 <p>status : {toggle.praesnt[i].status}</p>
+                {toggle.praesnt[i].status === "Available" && (
+                  <button
+                    id={toggle.praesnt[i]._id}
+                    className="delete-saved"
+                    onClick={removeSavePet}
+                  >
+                    remove
+                  </button>
+                )}
               </div>
               <NavLink
                 className="btn-more"
@@ -76,6 +102,7 @@ const Mypets = () => {
         </div>
       )}
       <section className="my-pets">
+        <ToastContainer className="notification" />
         <button
           className={
             toggle.text === "Saved" ? "pets save-btn" : "pets owned-btn"

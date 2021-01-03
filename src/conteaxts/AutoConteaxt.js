@@ -152,7 +152,7 @@ export const AutoProvider = ({ children }) => {
       );
       return res.data;
     } catch (err) {
-      console.log(err);
+      return err.response.data;
     }
   };
   //save pet
@@ -164,7 +164,19 @@ export const AutoProvider = ({ children }) => {
       );
       return res.data;
     } catch (err) {
-      console.log(err);
+      return err.response.data;
+    }
+  };
+
+  //return save pet
+  const returnsavePet = async (id) => {
+    try {
+      const res = await axios.delete(
+        `${baseUrl}/deletesavepet/?uId=${currentUser.uId}&petid=${id}`
+      );
+      return res.data;
+    } catch (err) {
+      return err.response.data;
     }
   };
   //get user owned pets/saved
@@ -173,7 +185,7 @@ export const AutoProvider = ({ children }) => {
       const res = await axios.get(`${baseUrl}/myPets/${currentUser.uId}`);
       return res.data;
     } catch (err) {
-      console.log(err);
+      return err.response.data;
     }
   };
   //return pet
@@ -184,7 +196,7 @@ export const AutoProvider = ({ children }) => {
       );
       return res.data;
     } catch (err) {
-      console.log(err);
+      return err.response.data;
     }
   };
 
@@ -200,6 +212,7 @@ export const AutoProvider = ({ children }) => {
     serachAdvance,
     adopteOrFoster,
     savePet,
+    returnsavePet,
     getPets,
     returnPet,
   };
