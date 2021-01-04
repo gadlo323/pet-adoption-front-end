@@ -12,7 +12,7 @@ const Petslist = () => {
   const { Pets } = useAuth();
 
   const pets = async (page) => {
-    const obj = await Pets(page, perPage);
+    const obj = await Pets(page, perPage, {});
     setLisetPets(obj.result);
     setTotalRows(obj.data.length);
   };
@@ -22,12 +22,12 @@ const Petslist = () => {
   }, []);
 
   const handlePerRowsChange = async (newPerPage, page) => {
-    const obj = await Pets(page, newPerPage);
+    const obj = await Pets(page, newPerPage, {});
     setLisetPets(obj.result);
     setPerPage(newPerPage);
   };
   const handlePageChange = async (page) => {
-    const obj = await Pets(page, perPage);
+    const obj = await Pets(page, perPage, {});
     setLisetPets(obj.result);
   };
 
@@ -49,12 +49,16 @@ const Petslist = () => {
     },
     {
       selector: "image_url",
-      cell: (row) => <img className="pet-img" src={row.image_url} />,
+      cell: (row) => <img className="pet-img-admin" src={row.image_url} />,
     },
     {
       ignoreRowClick: true,
       cell: (row) => (
-        <NavLink className="more-info" exact to={`/admin/addpet/${row._id}`}>
+        <NavLink
+          className="more-info"
+          exact
+          to={`/admin/addpet/?id=${row._id}`}
+        >
           edit
         </NavLink>
       ),

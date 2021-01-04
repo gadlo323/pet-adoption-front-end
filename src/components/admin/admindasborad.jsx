@@ -10,7 +10,7 @@ const Admindashborad = () => {
     <>
       <NavLogged />
       <section className="admin-deshborad">
-        <NavLink className="add-pet-link" exact to="/admin/addpet">
+        <NavLink className="add-pet-link" exact to="/admin/addpet/">
           Add Pet
         </NavLink>
         <div className="users-lists">

@@ -130,6 +130,28 @@ export const AutoProvider = ({ children }) => {
     }
   };
 
+  //edit Pet to db
+  const editPet = async (content, id, cloudinary_id) => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    let config = {
+      headers: {
+        authorization: "Bearer " + token,
+      },
+    };
+    try {
+      const res = await axios.patch(
+        `${baseUrl}/editpet/?id=${id}&cloudId=${cloudinary_id}`,
+        content,
+        config
+      );
+      if (res.data) {
+        return res.data;
+      }
+    } catch (err) {
+      return err.response.data;
+    }
+  };
+
   //get one Pet from db
   const getPet = async (id) => {
     try {
@@ -143,22 +165,11 @@ export const AutoProvider = ({ children }) => {
   };
 
   //serach Advance
-  const serachAdvance = async (data) => {
-    try {
-      const res = await axios.post(`${baseUrl}/search`, data);
-      if (res.data) {
-        return res.data;
-      }
-    } catch (err) {
-      return err.response.data;
-    }
-  };
-
-  const Pets = async (page, perPage) => {
+  const serach = async (page, perPage, data) => {
     try {
       const res = await axios.post(
         `${baseUrl}/search/?page=${page}&per_page=${perPage}`,
-        {}
+        data
       );
       if (res.data) {
         return res.data;
@@ -252,15 +263,15 @@ export const AutoProvider = ({ children }) => {
     getUser,
     userInfo,
     addPet,
+    editPet,
     getPet,
-    serachAdvance,
+    serach,
     adopteOrFoster,
     savePet,
     returnsavePet,
     getPets,
     returnPet,
     getUsers,
-    Pets,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

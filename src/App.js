@@ -31,7 +31,7 @@ function App() {
             />
             <PrivateRoute exact path="/mypets" component={Mypets} />
 
-            <PrivateRouteAdmin exact path="/admin/addpet" component={Addpet} />
+            <PrivateRouteAdmin exact path="/admin/addpet/" component={Addpet} />
             <PrivateRouteAdmin
               exact
               path="/userinfo/:id"

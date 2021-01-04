@@ -20,7 +20,7 @@ const advanceSearch = {
   name: "",
 };
 
-const Searchbar = ({ setList }) => {
+const Searchbar = ({ setList, perPage, setTotalRows }) => {
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [toggle, setToggle] = useState({
@@ -29,7 +29,7 @@ const Searchbar = ({ setList }) => {
   });
   const [advance, setAdvance] = useState(advanceSearch);
   const [search, setSearch] = useState("");
-  const { currentUser, serachAdvance } = useAuth();
+  const { currentUser, serach } = useAuth();
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -37,15 +37,16 @@ const Searchbar = ({ setList }) => {
     const searchType = e.nativeEvent.submitter.name;
     if (searchType === "advance") {
       removeEmpty(advance);
-      var result = await serachAdvance(advance);
+      var res = await serach(1, perPage, advance);
     } else {
       if (!search) var query = {};
       else var query = { type: search };
-      var result = await serachAdvance(query);
+      var res = await serach(1, perPage, query);
     }
-    setList(result);
+    setList(res.result);
+    setTotalRows(res.data.length);
     // localStorage.setItem("search", JSON.stringify(result));
-    if (result.length < 1) notifyError("Oops information not found 🙅");
+    if (res.data.length < 1) notifyError("Oops information not found 🙅");
 
     setTimeout(() => {
       onSendForm(false);

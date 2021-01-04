@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { GridLoader } from "react-spinners";
 import { css } from "@emotion/react";
@@ -26,14 +26,21 @@ const formFields = {
   bio: "",
 };
 const types = ["image/png", "image/jpeg"];
-const AddPet = () => {
-  const { addPet } = useAuth();
+const AddPet = (props) => {
+  const params = new URLSearchParams(props.location.search);
+  const id = params.get("id");
+  const { addPet, getPet, editPet } = useAuth();
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [formInfo, setFormInfo] = useState(formFields);
+  const [petInfo, setPetInfo] = useState({});
   const [file, setFile] = useState();
   const [petImag, setPetImag] = useState();
   const { register, handleSubmit, errors } = useForm();
+
+  useEffect(() => {
+    getPetInfo();
+  }, []);
 
   const handleChange = (e) => {
     setFormInfo({
@@ -44,12 +51,19 @@ const AddPet = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    const type = e.nativeEvent.submitter.name;
+
     setLoading(true);
     setDisabled(true);
     let formData = new FormData();
     formData.append("data", JSON.stringify(formInfo));
     formData.append("petImage", file);
-    const result = await addPet(formData);
+    // removeEmpty(formData);
+    if (type !== "update") {
+      var result = await addPet(formData);
+    } else {
+      var result = await editPet(formData, id, petInfo.cloudinary_id);
+    }
     if (result === true) notify("new pet add successfully 👌");
     else notifyError(result + "👎");
     setTimeout(() => {
@@ -57,6 +71,7 @@ const AddPet = () => {
       setDisabled(false);
     }, 2000);
   };
+
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (file && types.includes(file.type)) {
@@ -69,6 +84,37 @@ const AddPet = () => {
     } else {
       notifyError("Please select an image file (png, jpeg)!");
     }
+  };
+
+  const getPetInfo = async () => {
+    if (id != null) {
+      const res = await getPet(id);
+      console.log(res);
+      if (res) {
+        setFormInfo({
+          type: res.type,
+          name: res.name,
+          status: res.status,
+          hypoallergenic: res.hypoallergenic.toString(),
+          height: res.height,
+          weight: res.weight,
+          breed: res.breed,
+          color: res.color,
+          dietary: res.dietary,
+          bio: res.bio,
+        });
+        setPetImag(res.image_url);
+        setPetInfo(res);
+      } else {
+        notifyError("server problems...");
+      }
+    }
+  };
+
+  const removeEmpty = (obj) => {
+    Object.keys(obj).forEach(
+      (key) => (obj[key] == null || obj[key] == "") && delete obj[key]
+    );
   };
   const notify = (message) =>
     toast.success(message, {
@@ -97,7 +143,7 @@ const AddPet = () => {
       <section className="add-pet">
         <ToastContainer className="notification" />
         <div className="add-pet-img">
-          <img src="../admin1.jpg" alt="admin1-img" />
+          <img src="../../admin1.jpg" alt="admin1-img" />
         </div>
         <div className="add-pet-form">
           <form
@@ -240,16 +286,26 @@ const AddPet = () => {
             </div>
 
             <div className="btn-groupe">
-              <button type="submit" className="btnpet add-pet-btn">
-                Add pet
-              </button>
-              <button
-                type="reset"
-                className="btnpet add-pet-reset"
-                disabled={disabled}
-              >
-                Reset
-              </button>
+              {!id && (
+                <button
+                  name="addpet"
+                  type="submit"
+                  className="btnpet add-pet-btn"
+                >
+                  Add pet
+                </button>
+              )}
+
+              {id && (
+                <button
+                  name="update"
+                  type="submit"
+                  className="btnpet add-pet-reset"
+                  disabled={disabled}
+                >
+                  Updata
+                </button>
+              )}
             </div>
           </form>
         </div>
