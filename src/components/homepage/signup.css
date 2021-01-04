@@ -99,3 +99,23 @@
 .notification {
   font-size: 1.6rem;
 }
+
+@media (max-width: 80rem) {
+  .signup-model {
+    width: 40rem;
+  }
+  .popy-cover {
+    display: none;
+  }
+  .top-model {
+    flex-direction: column;
+  }
+  .title-sign {
+    align-items: center;
+    justify-content: center;
+  }
+  .input-field {
+    padding: 0.7rem 8rem;
+    font-size: 1.8rem;
+  }
+}

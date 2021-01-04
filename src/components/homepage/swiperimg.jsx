@@ -32,8 +32,8 @@ const Swiperimg = () => {
         spaceBetween={20}
         slidesPerView={4}
         navigation
-        pagination={{ clickable: true }}
         autoplay={{ delay: 1000 }}
+        pagination={{ clickable: true }}
       >
         {slides}
       </Swiper>

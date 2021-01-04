@@ -71,3 +71,21 @@ li {
   font-family: "Ranchers", cursive;
   cursor: pointer;
 }
+
+@media (max-width: 80rem) {
+  .header {
+    /* position: fixed;
+    top: 0; */
+    width: 100%;
+  }
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+  }
+  .logo-name {
+    display: none;
+  }
+  a {
+    padding: 0rem !important;
+  }
+}

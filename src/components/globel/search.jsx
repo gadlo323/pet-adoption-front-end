@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PrartiClas from "../globel/Particles";
 import DataTable from "react-data-table-component";
 import Navhome from "../homepage/navhome";
 import { NavLink } from "react-router-dom";
@@ -46,12 +47,12 @@ const Serach = () => {
       sortable: true,
     },
     {
-      name: "Height",
+      name: "Height(c.m)",
       selector: "height",
       sortable: true,
     },
     {
-      name: "Weight",
+      name: "Weight(k.g)",
       selector: "weight",
       sortable: true,
     },
@@ -74,6 +75,9 @@ const Serach = () => {
     <>
       {currentUser ? <NavLogged /> : <Navhome />}
       <section className="search-page">
+        <div className="cool">
+          <PrartiClas colorPic={"#162B32"} />
+        </div>
         <Searchbar
           setList={setLisetPets}
           perPage={perPage}

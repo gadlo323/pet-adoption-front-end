@@ -18,3 +18,13 @@
 .swiper-container {
   z-index: 0 !important;
 }
+
+@media (max-width: 80rem) {
+  #swiper {
+    box-shadow: none;
+    background-color: transparent;
+  }
+  .dog-img {
+    width: 19rem;
+  }
+}

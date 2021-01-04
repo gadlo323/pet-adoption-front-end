@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PrartiClas from "../globel/Particles";
 import { useForm } from "react-hook-form";
 import { GridLoader } from "react-spinners";
 import { css } from "@emotion/react";
@@ -81,9 +82,12 @@ const ProfileSettings = () => {
     <>
       <NavLogged />
       <div className="profile">
+        <div className="cool">
+          <PrartiClas colorPic={"#AA424C"} />
+        </div>
         <ToastContainer className="notification" />
         <div className="settings-img">
-          <img src="./profile.jpg" alt="profile-men" />
+          <img src="./profile.png" alt="profile-men" />
         </div>
         <div className="settings-form">
           <form

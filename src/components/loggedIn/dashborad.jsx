@@ -1,4 +1,5 @@
 import React from "react";
+import PrartiClas from "../globel/Particles";
 import { NavLink } from "react-router-dom";
 import NavLogged from "./navLogged";
 import "./dashborad.css";
@@ -8,6 +9,9 @@ const Dashborad = () => {
     <>
       <NavLogged />
       <div className="wrapper">
+        <div className="cool">
+          <PrartiClas colorPic={"#D459B7"} />
+        </div>
         <div className="cards">
           <div className="card">
             <div className="top-card">
@@ -40,14 +44,14 @@ const Dashborad = () => {
           </div>
           <div className="card">
             <div className="top-card">
-              <h2>My Pet</h2>
+              <h2>My Pets</h2>
             </div>
             <div className="crad-img">
               <img src="./linkscard/myPets.png" alt="dogs" />
             </div>
             <div className="crad-link">
               <NavLink exact to="/mypets">
-                Go to my pet
+                Go to my pets
               </NavLink>
             </div>
           </div>

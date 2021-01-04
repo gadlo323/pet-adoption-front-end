@@ -9,10 +9,10 @@ const Petslist = () => {
   const [totalRows, setTotalRows] = useState(0);
   const [perPage, setPerPage] = useState(10);
   const [listPets, setLisetPets] = useState([]);
-  const { Pets } = useAuth();
+  const { serach } = useAuth();
 
   const pets = async (page) => {
-    const obj = await Pets(page, perPage, {});
+    const obj = await serach(page, perPage, {});
     setLisetPets(obj.result);
     setTotalRows(obj.data.length);
   };
@@ -22,12 +22,12 @@ const Petslist = () => {
   }, []);
 
   const handlePerRowsChange = async (newPerPage, page) => {
-    const obj = await Pets(page, newPerPage, {});
+    const obj = await serach(page, newPerPage, {});
     setLisetPets(obj.result);
     setPerPage(newPerPage);
   };
   const handlePageChange = async (page) => {
-    const obj = await Pets(page, perPage, {});
+    const obj = await serach(page, perPage, {});
     setLisetPets(obj.result);
   };
 

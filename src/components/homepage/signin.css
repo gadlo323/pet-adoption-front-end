@@ -72,3 +72,9 @@
   font-weight: 700;
   padding: 1rem;
 }
+
+@media (max-width: 80rem) {
+  .login-model {
+    width: 30rem;
+  }
+}

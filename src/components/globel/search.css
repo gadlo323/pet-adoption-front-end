@@ -1,7 +1,10 @@
 .search-page {
+  position: relative;
   min-height: 90vh;
   width: 90%;
   margin: auto;
+
+  overflow: hidden;
 }
 .search-card {
   background-color: lightseagreen !important;
@@ -11,4 +14,10 @@
 }
 .not-found {
   max-width: 50rem;
+}
+
+@media (max-width: 80rem) {
+  .not-found {
+    max-width: 30rem;
+  }
 }
