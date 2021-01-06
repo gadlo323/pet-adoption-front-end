@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useAuth } from "../../conteaxts/AutoConteaxt";
 import { GridLoader } from "react-spinners";
 import { css } from "@emotion/react";
@@ -21,6 +22,7 @@ const advanceSearch = {
 };
 
 const Searchbar = ({ setList, perPage, setTotalRows }) => {
+  const { register, handleSubmit, errors } = useForm();
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [toggle, setToggle] = useState({
@@ -31,7 +33,7 @@ const Searchbar = ({ setList, perPage, setTotalRows }) => {
   const [search, setSearch] = useState("");
   const { currentUser, serach } = useAuth();
 
-  const handleSearch = async (e) => {
+  const handleSearch = async (data, e) => {
     e.preventDefault();
     onSendForm(true);
     const searchType = e.nativeEvent.submitter.name;
@@ -43,10 +45,15 @@ const Searchbar = ({ setList, perPage, setTotalRows }) => {
       else var query = { type: search };
       var res = await serach(1, perPage, query);
     }
-    setList(res.result);
-    setTotalRows(res.data.length);
+    if (res.error === 1) {
+      notifyError(res.dataSevere);
+    } else {
+      const { result, data } = res.dataSevere;
+      setList(result);
+      setTotalRows(data.length);
+      if (data.length < 1) notifyError("Oops information not found 🙅");
+    }
     // localStorage.setItem("search", JSON.stringify(result));
-    if (res.data.length < 1) notifyError("Oops information not found 🙅");
 
     setTimeout(() => {
       onSendForm(false);
@@ -94,7 +101,10 @@ const Searchbar = ({ setList, perPage, setTotalRows }) => {
       <div className="forms">
         {toggle.state && (
           <div className="advance-search">
-            <form className="form-search-advance" onSubmit={handleSearch}>
+            <form
+              className="form-search-advance"
+              onSubmit={handleSubmit(handleSearch)}
+            >
               <select
                 name="status"
                 className="advance-input"
@@ -113,29 +123,54 @@ const Searchbar = ({ setList, perPage, setTotalRows }) => {
                   className="advance-input"
                   value={advance.type || ""}
                   placeholder="Type"
+                  minLength="2"
+                  maxLength="12"
                   onChange={handleOnchange}
+                  ref={register({
+                    pattern: /^[A-Za-z\s]+$/i,
+                  })}
                 />
+                <div className="error-box">
+                  {errors.type && errors.type.type === "pattern" && (
+                    <p className="error-field">English letters only</p>
+                  )}
+                </div>
                 <input
                   name="name"
                   type="text"
                   className="advance-input"
                   value={advance.name || ""}
                   placeholder="Name"
+                  minLength="2"
+                  maxLength="12"
                   onChange={handleOnchange}
+                  ref={register({
+                    pattern: /^[A-Za-z\s]+$/i,
+                  })}
                 />
+                <div className="error-box">
+                  {errors.name && errors.name.type === "pattern" && (
+                    <p className="error-field">English letters only</p>
+                  )}
+                </div>
               </div>
               <div className="input-group">
                 <input
                   name="height"
                   type="number"
+                  min={10}
+                  max={250}
                   className="advance-input"
                   value={advance.height || ""}
                   placeholder="Height"
                   onChange={handleOnchange}
                 />
+
                 <input
                   name="weight"
                   type="number"
+                  min={1}
+                  max={200}
                   value={advance.weight || ""}
                   className="advance-input"
                   placeholder="Weight"
@@ -154,14 +189,25 @@ const Searchbar = ({ setList, perPage, setTotalRows }) => {
           </div>
         )}
         {!toggle.state && (
-          <form className="form-search" onSubmit={handleSearch}>
+          <form className="form-search" onSubmit={handleSubmit(handleSearch)}>
             <input
+              name="search"
               type="search"
               className="search-input"
               value={search}
               placeholder="Type of animal..."
+              minLength="2"
+              maxLength="12"
               onChange={(e) => setSearch(e.target.value)}
+              ref={register({
+                pattern: /^[A-Za-z\s]+$/i,
+              })}
             />
+            <div className="error-box">
+              {errors.search && errors.search.type === "pattern" && (
+                <p className="error-field">English letters only</p>
+              )}
+            </div>
             <button
               name="simpleSearch"
               type="submit"

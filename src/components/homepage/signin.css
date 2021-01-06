@@ -1,18 +1,22 @@
-.login-model {
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap");
+.model {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-height: 55vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 60rem;
   box-shadow: -2px 8px 25px 0px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: -2px 8px 25px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -2px 8px 25px 0px rgba(0, 0, 0, 0.75);
   background-color: #303940;
   z-index: 2;
+  outline: none;
+  font-family: "Josefin Sans", sans-serif;
+}
+.login-model {
+  width: 50rem;
 }
 .login-wrapeer {
   display: flex;
@@ -34,11 +38,14 @@
   color: aliceblue;
 }
 
-.login-img img {
-  max-width: 30rem;
+.login-img {
+  position: relative;
+  top: 9rem;
+  max-width: 25rem;
 }
 .main-model {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding-top: 4rem;
@@ -48,18 +55,21 @@
   flex-direction: column;
 }
 .input-login {
-  padding: 0.5rem 1rem;
+  padding: 0.7rem 2rem;
   font-size: 1.8rem;
   margin-left: 1rem;
   border: none;
   border-radius: 10rem;
   outline: none;
   margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 .login-btn {
+  align-self: center;
   padding: 0.5rem 0rem;
   font-size: 2rem;
   border: none;
+  width: 60%;
   border-radius: 1rem;
   background-color: lightsalmon;
   color: white;
@@ -74,10 +84,29 @@
   color: red;
   font-weight: 700;
   padding: 1rem;
+  text-align: center;
 }
 
+.btn-hide {
+  position: relative;
+  right: 3rem;
+  font-size: 2rem;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
 @media (max-width: 80rem) {
   .login-model {
-    width: 30rem;
+    width: 35rem;
+  }
+  .login-btn,
+  .input-login {
+    width: 80%;
+    align-self: center;
+  }
+  .input-containter {
+    position: relative;
+    left: 2.4rem;
   }
 }

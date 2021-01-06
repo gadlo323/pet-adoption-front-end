@@ -32,14 +32,16 @@ const Serach = () => {
   const handlePerRowsChange = async (newPerPage, page) => {
     setLoading(true);
     const obj = await serach(page, newPerPage);
-    setLisetPets(obj.result);
+    const { result } = obj.dataSevere;
+    setLisetPets(result);
     setPerPage(newPerPage);
     setLoading(false);
   };
   const handlePageChange = async (page) => {
     setLoading(true);
     const obj = await serach(page, perPage);
-    setLisetPets(obj.result);
+    const { result } = obj.dataSevere;
+    setLisetPets(result);
     setLoading(false);
   };
   const conditionalRowStyles = [

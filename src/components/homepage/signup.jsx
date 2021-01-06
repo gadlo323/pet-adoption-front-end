@@ -26,10 +26,11 @@ const formFields = {
   repatePass: "",
 };
 const Signup = ({ show, setModel }) => {
+  const { register, handleSubmit, errors } = useForm();
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [formInfo, setFormInfo] = useState(formFields);
-  const { register, handleSubmit, errors } = useForm();
+
   const history = useHistory();
   const { signupUser } = useAuth();
 
@@ -41,7 +42,6 @@ const Signup = ({ show, setModel }) => {
   };
 
   const onSubmit = async (e) => {
-    e.preventDefault();
     setLoading(true);
     setDisabled(true);
     if (compearPass()) {
@@ -57,6 +57,7 @@ const Signup = ({ show, setModel }) => {
       setLoading(false);
       setDisabled(false);
     }, 1000);
+    return false;
   };
 
   const closeModel = () => {
@@ -75,7 +76,7 @@ const Signup = ({ show, setModel }) => {
     });
 
   const Errors = {
-    patternEmial: "This email is invalid or already in use",
+    patternEmial: "This email is invalid",
     patternPhone: "Invalid phone number",
   };
   const compearPass = () => {
@@ -83,39 +84,49 @@ const Signup = ({ show, setModel }) => {
   };
 
   return (
-    <Modal className="signup-model" isOpen={show}>
+    <Modal className="model signup-model" isOpen={show}>
       <ToastContainer className="notification" />
       <div className="top-model">
         <i className="fa fa-times-circle" onClick={closeModel}></i>
         <h1 className="title-sign">Sign Up</h1>
       </div>
       <div className="wrapeer-model">
-        <form
-          className="model-form"
-          onSubmit={(e) => handleSubmit(onSubmit(e))}
-        >
-          <div className="inputs-fields">
-            <input
-              name="firstName"
-              className="input-field"
-              type="text"
-              placeholder="First Name.."
-              onChange={handleChange}
-              minLength="2"
-              maxLength="10"
-              required
-            />
-            <input
-              name="lastName"
-              className="input-field"
-              type="text"
-              placeholder="Last Name.."
-              onChange={handleChange}
-              minLength="2"
-              maxLength="10"
-              required
-            />
+        <form className="model-form" onSubmit={handleSubmit(onSubmit)}>
+          <input
+            name="firstName"
+            className="input-field"
+            type="text"
+            placeholder="First Name.."
+            onChange={handleChange}
+            minLength="2"
+            maxLength="10"
+            required
+            ref={register({ pattern: /^[A-Za-z]+$/i })}
+          />
+          <div className="error-box">
+            {errors.firstName && errors.firstName.type === "pattern" && (
+              <p className="error-field">English letters only</p>
+            )}
           </div>
+          <input
+            name="lastName"
+            className="input-field"
+            type="text"
+            placeholder="Last Name.."
+            onChange={handleChange}
+            minLength="2"
+            maxLength="10"
+            required
+            ref={register({
+              pattern: /^[A-Za-z]+$/i,
+            })}
+          />
+          <div className="error-box">
+            {errors.lastName && errors.lastName.type === "pattern" && (
+              <p className="error-field">English letters only</p>
+            )}
+          </div>
+
           <input
             name="email"
             className="input-field"
@@ -138,6 +149,8 @@ const Signup = ({ show, setModel }) => {
             type="number"
             placeholder="Phone Number"
             onChange={handleChange}
+            minLength="9"
+            maxLength="10"
             required
             ref={register({
               pattern: /^((\+|00)\-?972?|0)(([23489]|[57]\d)\-?\d{7})$/gm,

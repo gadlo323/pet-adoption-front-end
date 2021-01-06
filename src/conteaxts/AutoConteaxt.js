@@ -57,7 +57,7 @@ export const AutoProvider = ({ children }) => {
     }
   };
   //login
-  const hendaleLogin = async (email, password) => {
+  const hendaleLogin = async (formInfo) => {
     const token = JSON.parse(localStorage.getItem("token"));
     let config = {
       headers: {
@@ -65,11 +65,7 @@ export const AutoProvider = ({ children }) => {
       },
     };
     try {
-      const res = await axios.post(
-        `${baseUrl}/login`,
-        { email: email, password: password },
-        config
-      );
+      const res = await axios.post(`${baseUrl}/login`, formInfo, config);
       if (res.data) {
         localStorage.setItem("token", JSON.stringify(res.data));
         const user = jwt(res.data);
@@ -179,10 +175,10 @@ export const AutoProvider = ({ children }) => {
         data
       );
       if (res.data) {
-        return res.data;
+        return { error: 0, dataSevere: res.data };
       }
     } catch (err) {
-      return err.response.data;
+      return { error: 1, dataSevere: err.response.data };
     }
   };
 
