@@ -6,10 +6,11 @@ import Serach from "./components/globel/search";
 import "./App.css";
 import Dashborad from "./components/loggedIn/dashborad";
 import ProfileSettings from "./components/loggedIn/profilesettings";
-import Mypets from "./components/loggedIn/mypets";
+import UserPets from "./components/loggedIn/userPets";
 import Petpage from "./components/loggedIn/petpage";
 import UserInfo from "./components/admin/userInfo";
 import PrivateRoute from "./components/PrivateRoute";
+import PublicRoute from "./components/publicRoute";
 import PrivateRouteAdmin from "./components/PrivateRouteAdmin";
 import Addpet from "./components/admin/addPet";
 import Admindashborad from "./components/admin/admindasborad";
@@ -20,25 +21,21 @@ function App() {
       <AutoProvider>
         <div className="App">
           <Switch>
-            <Route exact path="/" component={Welcoming} />
-            <Route exact path="/search" component={Serach} />
-            <Route exact path="/Petpage/:id" component={Petpage} />
-            <PrivateRoute exact path="/deshborad" component={Dashborad} />
+            <PublicRoute exact path="/" component={Welcoming} />
+            <Route path="/search" component={Serach} />
+            <Route path="/Petpage/:id" component={Petpage} />
+
+            <PrivateRoute path="/deshborad" component={Dashborad} />
             <PrivateRoute
               exact
               path="/ProfileSettings"
               component={ProfileSettings}
             />
-            <PrivateRoute exact path="/mypets" component={Mypets} />
+            <PrivateRoute path="/mypets" component={UserPets} />
 
-            <PrivateRouteAdmin exact path="/admin/addpet/" component={Addpet} />
+            <PrivateRouteAdmin path="/admin/addpet/" component={Addpet} />
+            <PrivateRouteAdmin path="/userinfo/:id" component={UserInfo} />
             <PrivateRouteAdmin
-              exact
-              path="/userinfo/:id"
-              component={UserInfo}
-            />
-            <PrivateRouteAdmin
-              exact
               path="/admin/deshborad"
               component={Admindashborad}
             />

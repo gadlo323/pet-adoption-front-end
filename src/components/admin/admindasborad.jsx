@@ -20,7 +20,7 @@ const Admindashborad = () => {
         <div className="users-lists">
           <Userslist />
         </div>
-        <div className="pets-list">
+        <div className="users-lists">
           <Petslist />
         </div>
       </section>

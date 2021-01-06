@@ -8,7 +8,11 @@ const PrivateRouteAdmin = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) => {
-        return currentUser ? <Component {...props} /> : <Redirect to="/" />;
+        return currentUser !== undefined && currentUser.role === "2" ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/" />
+        );
       }}
     ></Route>
   );

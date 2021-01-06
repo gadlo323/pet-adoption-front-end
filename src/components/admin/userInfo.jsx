@@ -41,10 +41,15 @@ const UserInfo = (props) => {
           <ul className="owend-list">
             {userPets.map((item, index) => {
               return (
-                <li className="pet-row" key={index}>
-                  Name :{item.name}
-                  Status:{item.status}
-                  Breed :{item.breed}
+                <li className="pet-item" key={index}>
+                  <div className="top">
+                    <span>{item.name}</span>
+                    <span>{item.breed}</span>
+                  </div>
+                  <div className="bootom">
+                    <p>{item.status}</p>
+                    <img className="pet-info-img" src={item.image_url} alt="" />
+                  </div>
                 </li>
               );
             })}

@@ -66,6 +66,9 @@
   outline: none;
   cursor: pointer;
 }
+.login-btn:hover {
+  background-color: rgb(238, 126, 81);
+}
 .error-field-login {
   font-size: 1.8rem;
   color: red;

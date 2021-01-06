@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
 import PrartiClas from "../globel/Particles";
 import DataTable from "react-data-table-component";
+import { BounceLoader } from "react-spinners";
+import { css } from "@emotion/react";
 import Navhome from "../homepage/navhome";
 import { NavLink } from "react-router-dom";
 import NavLogged from "../loggedIn/navLogged";
 import { useAuth } from "../../conteaxts/AutoConteaxt";
 import Searchbar from "./searchbar";
 import "./search.css";
+
+const override = css`
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  border-color: red;
+`;
 const Serach = () => {
   const { currentUser, serach } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -21,14 +30,47 @@ const Serach = () => {
   // }, []);
 
   const handlePerRowsChange = async (newPerPage, page) => {
+    setLoading(true);
     const obj = await serach(page, newPerPage);
     setLisetPets(obj.result);
     setPerPage(newPerPage);
+    setLoading(false);
   };
   const handlePageChange = async (page) => {
+    setLoading(true);
     const obj = await serach(page, perPage);
     setLisetPets(obj.result);
+    setLoading(false);
   };
+  const conditionalRowStyles = [
+    {
+      when: (row) => row.status === "Adopted",
+      style: {
+        background: "#E16C6C",
+        "&:hover": {
+          cursor: "not-allowed",
+        },
+      },
+    },
+    {
+      when: (row) => row.status === "Fostered",
+      style: {
+        background: "#F2BC57",
+        "&:hover": {
+          cursor: "pointer",
+        },
+      },
+    },
+    {
+      when: (row) => row.status === "Available",
+      style: {
+        backgroundImage: "linear-gradient(to right, #43e97b 0%, #38f9d7 100%)",
+        "&:hover": {
+          cursor: "pointer",
+        },
+      },
+    },
+  ];
 
   const columns = [
     {
@@ -65,7 +107,7 @@ const Serach = () => {
       ignoreRowClick: true,
       cell: (row) => (
         <NavLink className="more-info" exact to={`/Petpage/${row._id}`}>
-          Go...
+          <i className="fa fa-info-circle fa-1x"></i>
         </NavLink>
       ),
     },
@@ -87,16 +129,22 @@ const Serach = () => {
           className="my-table"
           columns={columns}
           data={listPets}
-          progressPending={loading}
           pagination
           paginationServer
           paginationTotalRows={totalRows}
           onChangeRowsPerPage={handlePerRowsChange}
           onChangePage={handlePageChange}
+          conditionalRowStyles={conditionalRowStyles}
         />
         {listPets.length === 0 && (
           <img className="not-found" src="./data-notFound.jpg" alt="no-data" />
         )}
+        <BounceLoader
+          css={override}
+          size={90}
+          color={"#123abc"}
+          loading={loading}
+        />
       </section>
       ;
     </>

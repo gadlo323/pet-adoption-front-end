@@ -1,11 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Russo+One&display=swap");
 .my-pets {
+  position: relative;
   display: flex;
   width: 90%;
   margin: auto;
   min-height: 90vh;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 .pets {
   font-size: 2rem;
@@ -13,17 +15,18 @@
   align-self: flex-start;
   padding: 0.5rem 5rem;
   margin: 3rem;
-  border-radius: 2rem;
+  border-radius: 20rem;
   border: none;
   outline: none;
   color: white;
   cursor: pointer;
+  z-index: 20;
 }
 .save-btn {
-  background-color: #f5a462;
+  background: linear-gradient(0deg, #48c6ef, #6f86d6);
 }
 .owned-btn {
-  background-color: #e86f51;
+  background: linear-gradient(0deg, #13547a, #80d0c7);
 }
 .no-pets {
   display: flex;
@@ -54,12 +57,9 @@
   align-items: center;
 }
 .status-pet p {
-  font-size: 2rem;
+  font-size: 2rem !important;
   padding: 1rem;
   font-family: "Russo One", sans-serif;
-}
-.show-more {
-  padding: 2rem;
 }
 .btn-more {
   padding: 0.5rem 1rem;
@@ -76,14 +76,30 @@
 }
 .delete-saved {
   padding: 0.3rem 2rem;
-  font-size: 1.6rem;
+  font-size: 1.9rem;
   background-color: lightskyblue;
   border: none;
   border-radius: 2rem;
   outline: none;
+  color: black;
   cursor: pointer;
 }
 .delete-saved:hover {
   background-color: #297dcc;
   color: white;
+}
+.carousel .slide {
+  background: none;
+}
+.carousel.carousel-slider .control-arrow {
+  width: 10%;
+}
+
+@media (max-width: 80rem) {
+  .my-pets {
+    flex-direction: column;
+  }
+  .btn-more {
+    font-size: 2rem;
+  }
 }

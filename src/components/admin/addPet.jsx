@@ -89,7 +89,6 @@ const AddPet = (props) => {
   const getPetInfo = async () => {
     if (id != null) {
       const res = await getPet(id);
-      console.log(res);
       if (res) {
         setFormInfo({
           type: res.type,

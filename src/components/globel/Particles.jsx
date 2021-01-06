@@ -1,7 +1,7 @@
 import React from "react";
 import Particles from "react-particles-js";
 
-const PrartiClas = ({ colorPic }) => {
+const PrartiClas = ({ colorPic, distance }) => {
   return (
     <Particles
       height="100vh"
@@ -52,10 +52,10 @@ const PrartiClas = ({ colorPic }) => {
           },
           line_linked: {
             enable_auto: true,
-            distance: 200,
+            distance: distance,
             color: colorPic,
             opacity: 1,
-            width: 3,
+            width: 2,
             condensed_mode: {
               enable: false,
               rotateX: 600,

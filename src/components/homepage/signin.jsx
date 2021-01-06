@@ -19,6 +19,7 @@ const Signin = ({ show, setModel }) => {
     e.preventDefault();
     const res = await hendaleLogin(email, password);
     if (res) {
+      setModel(!show);
       if (res.role == 1) history.push("/deshborad");
       else if (res.role == 2) history.push("/admin/deshborad");
     }

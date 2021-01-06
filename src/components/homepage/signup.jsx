@@ -48,6 +48,7 @@ const Signup = ({ show, setModel }) => {
       const res = await signupUser(formInfo);
       if (res.error === 1) notifyError(res.dataSevere);
       else {
+        setModel(!show);
         history.push("/deshborad");
       }
     } else notifyError("Password confirmation does not match to password !");

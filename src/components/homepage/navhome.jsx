@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Signup from "./signup";
 import Signin from "./signin";
 import "./navhome.css";
 
 const Navhome = () => {
-  const [modelSignup, setModelSignup] = useState(false);
-  const [modelSignin, setModelSignin] = useState(false);
+  const [modelSignup, setModelSignup] = useState();
+  const [modelSignin, setModelSignin] = useState();
 
   const openModel = () => {
     setModelSignup(!modelSignup);

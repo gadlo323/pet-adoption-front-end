@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { BounceLoader } from "react-spinners";
+import { css } from "@emotion/react";
 import DataTable from "react-data-table-component";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../conteaxts/AutoConteaxt";
 
 import "./petslist.css";
+const override = css`
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  border-color: red;
+`;
 const Petslist = () => {
   const [loading, setLoading] = useState(false);
   const [totalRows, setTotalRows] = useState(0);
@@ -12,9 +20,11 @@ const Petslist = () => {
   const { serach } = useAuth();
 
   const pets = async (page) => {
+    setLoading(true);
     const obj = await serach(page, perPage, {});
     setLisetPets(obj.result);
     setTotalRows(obj.data.length);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -22,14 +32,47 @@ const Petslist = () => {
   }, []);
 
   const handlePerRowsChange = async (newPerPage, page) => {
+    setLoading(true);
     const obj = await serach(page, newPerPage, {});
     setLisetPets(obj.result);
     setPerPage(newPerPage);
+    setLoading(false);
   };
   const handlePageChange = async (page) => {
+    setLoading(true);
     const obj = await serach(page, perPage, {});
     setLisetPets(obj.result);
+    setLoading(false);
   };
+  const conditionalRowStyles = [
+    {
+      when: (row) => row.status === "Adopted",
+      style: {
+        background: "#E16C6C",
+        "&:hover": {
+          cursor: "not-allowed",
+        },
+      },
+    },
+    {
+      when: (row) => row.status === "Fostered",
+      style: {
+        background: "#F2BC57",
+        "&:hover": {
+          cursor: "pointer",
+        },
+      },
+    },
+    {
+      when: (row) => row.status === "Available",
+      style: {
+        backgroundImage: "linear-gradient(to right, #43e97b 0%, #38f9d7 100%)",
+        "&:hover": {
+          cursor: "pointer",
+        },
+      },
+    },
+  ];
 
   const columns = [
     {
@@ -59,25 +102,33 @@ const Petslist = () => {
           exact
           to={`/admin/addpet/?id=${row._id}`}
         >
-          edit
+          <i className="fa fa-edit"></i>
         </NavLink>
       ),
     },
   ];
 
   return (
-    <DataTable
-      className="my-table"
-      title="pets List"
-      columns={columns}
-      data={listPets}
-      progressPending={loading}
-      pagination
-      paginationServer
-      paginationTotalRows={totalRows}
-      onChangeRowsPerPage={handlePerRowsChange}
-      onChangePage={handlePageChange}
-    />
+    <>
+      <DataTable
+        className="my-table"
+        title="pets List"
+        columns={columns}
+        data={listPets}
+        pagination
+        paginationServer
+        paginationTotalRows={totalRows}
+        onChangeRowsPerPage={handlePerRowsChange}
+        onChangePage={handlePageChange}
+        conditionalRowStyles={conditionalRowStyles}
+      />
+      <BounceLoader
+        css={override}
+        size={90}
+        color={"#123abc"}
+        loading={loading}
+      />
+    </>
   );
 };
 

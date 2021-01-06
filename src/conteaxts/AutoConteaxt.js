@@ -10,7 +10,7 @@ export const useAuth = () => {
 
 export const AutoProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
-  // const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const history = useHistory();
   const baseUrl = "http://localhost:5000";
 
@@ -24,18 +24,24 @@ export const AutoProvider = ({ children }) => {
             authorization: "Bearer " + token,
           },
         });
+
         if (tokenRes.data) {
-          let user = jwt(token);
+          const user = jwt(token);
           setCurrentUser(user);
-          if (user.role == 1) history.push("/deshborad");
-          else history.push("/admin/deshborad");
+          setLoading(false);
         }
+      } else {
+        setLoading(false);
       }
-    } catch (err) {}
+    } catch (err) {
+      setLoading(false);
+      throw err;
+    }
   };
 
   useEffect(() => {
     userActive();
+    return () => userActive();
   }, []);
 
   //signUp
@@ -71,7 +77,7 @@ export const AutoProvider = ({ children }) => {
         return user;
       }
     } catch (error) {
-      return error.response.data;
+      return false;
     }
   };
 
@@ -79,6 +85,7 @@ export const AutoProvider = ({ children }) => {
 
   const logOut = () => {
     localStorage.removeItem("token");
+    setCurrentUser();
     history.push("/");
   };
   //update
@@ -227,7 +234,7 @@ export const AutoProvider = ({ children }) => {
   };
 
   //get all users
-  const getUsers = async () => {
+  const getUsers = async (page, perPage) => {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
       let config = {
@@ -235,7 +242,10 @@ export const AutoProvider = ({ children }) => {
           authorization: "Bearer " + token,
         },
       };
-      const res = await axios.get(`${baseUrl}/getusers`, config);
+      const res = await axios.get(
+        `${baseUrl}/getusers/?page=${page}&per_page=${perPage}`,
+        config
+      );
       return res.data;
     } catch (err) {
       return err.response.data;
@@ -274,5 +284,9 @@ export const AutoProvider = ({ children }) => {
     getUsers,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 };
