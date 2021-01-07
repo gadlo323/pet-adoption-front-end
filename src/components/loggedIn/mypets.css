@@ -13,6 +13,7 @@
   font-size: 2rem;
   display: flex;
   align-self: flex-start;
+  background-color: transparent;
   padding: 0.5rem 5rem;
   margin: 3rem;
   border-radius: 20rem;
@@ -93,6 +94,9 @@
 }
 .carousel.carousel-slider .control-arrow {
   width: 10%;
+}
+.carousel .carousel-status {
+  font-size: 3rem;
 }
 
 @media (max-width: 80rem) {

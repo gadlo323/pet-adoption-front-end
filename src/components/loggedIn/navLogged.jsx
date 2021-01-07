@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../../conteaxts/AutoConteaxt";
 import "./navLogged.css";
 
@@ -11,7 +11,9 @@ const NavLogged = () => {
   };
   return (
     <header className="header">
-      <h2 className="welcome-user">Hello {currentUser.name}</h2>
+      <NavLink exact to="/deshborad">
+        <h2 className="welcome-user">Hello {currentUser.name}</h2>
+      </NavLink>
       <button type="button" className="log-out" onClick={onLogout}>
         Log Out
       </button>

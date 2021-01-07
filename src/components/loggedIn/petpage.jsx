@@ -16,12 +16,14 @@ const override = css`
 const Petpage = (props) => {
   const { currentUser, getPet, adopteOrFoster, savePet, returnPet } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const [petData, setPetData] = useState({});
-  let mounted = true;
   const petId = props.match.params.id;
+  const owned = props.match.params.owned;
+
   const getPetData = async () => {
-    if (mounted) {
-      const obj = await getPet(petId);
+    const obj = await getPet(petId);
+    if (obj) {
       setPetData(obj);
     }
   };
@@ -30,49 +32,69 @@ const Petpage = (props) => {
     getPetData();
 
     return () => {
-      mounted = false;
+      getPetData();
     };
   }, []);
 
   const adopteFoster = async (e) => {
     setLoading(true);
+    setDisabled(true);
     const type = e.target.name;
     const result = await adopteOrFoster(petData, type);
     if (result) {
       notify(`The pet was ${type} successfully`);
       setTimeout(() => {
         setLoading(false);
-      }, 1500);
+        setDisabled(false);
+      }, 2500);
+      reloadPage();
     }
   };
 
   const save = async (e) => {
     setLoading(true);
+    setDisabled(true);
     const result = await savePet(petData);
     if (result) {
       notify(`The pet was saved successfully`);
       setTimeout(() => {
         setLoading(false);
-      }, 1500);
+        setDisabled(false);
+      }, 2500);
+      reloadPage();
     }
   };
 
   const restorePet = async () => {
+    setLoading(true);
+    setDisabled(true);
     const result = await returnPet(petId);
-    if (result) notify("The pet was successfully returned to the shelter");
-    else notify("Oops something was Wrong ");
+    if (result) {
+      notify("The pet was successfully returned to the shelter");
+      setTimeout(() => {
+        setLoading(false);
+        setDisabled(false);
+      }, 2500);
+      reloadPage();
+    } else notify("Oops something was Wrong ");
   };
 
   const notify = (message) =>
     toast.success(message, {
       position: "top-right",
-      autoClose: 5000,
+      autoClose: 2700,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     });
+
+  const reloadPage = () => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 2500);
+  };
 
   return (
     <>
@@ -141,17 +163,21 @@ const Petpage = (props) => {
                       type="button"
                       className="pet-btn Adopet"
                       onClick={adopteFoster}
+                      disabled={disabled}
                     >
                       Adopet
                     </button>
-                    <button
-                      name="save"
-                      type="button"
-                      className="pet-btn save"
-                      onClick={save}
-                    >
-                      Save
-                    </button>
+                    {!owned && (
+                      <button
+                        name="save"
+                        type="button"
+                        className="pet-btn save"
+                        onClick={save}
+                        disabled={disabled}
+                      >
+                        Save
+                      </button>
+                    )}
                   </div>
                 )}
                 {!(petData.status === "Fostered") &&
@@ -161,27 +187,30 @@ const Petpage = (props) => {
                       type="button"
                       className="pet-btn return"
                       onClick={adopteFoster}
+                      disabled={disabled}
                     >
                       Foster
                     </button>
                   )}
                 {petData.status === "Fostered" ||
-                  (petData.status === "Adopted" && (
+                  (petData.status === "Adopted" && owned && (
                     <button
                       name="Fostered"
                       type="button"
                       className="pet-btn return"
                       onClick={restorePet}
+                      disabled={disabled}
                     >
                       return Pet
                     </button>
                   ))}
-                {petData.status === "Fostered" && (
+                {petData.status === "Fostered" && owned && (
                   <button
                     name="Fostered"
                     type="button"
                     className="pet-btn return"
                     onClick={restorePet}
+                    disabled={disabled}
                   >
                     return Pet
                   </button>

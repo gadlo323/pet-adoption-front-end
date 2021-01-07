@@ -28,6 +28,7 @@ const Searchbar = ({ setList, perPage, setTotalRows }) => {
   const [toggle, setToggle] = useState({
     state: false,
     text: "Advance",
+    icon: "/searchadvance.png",
   });
   const [advance, setAdvance] = useState(advanceSearch);
   const [search, setSearch] = useState("");
@@ -80,8 +81,8 @@ const Searchbar = ({ setList, perPage, setTotalRows }) => {
 
   const onToogle = () => {
     toggle.state
-      ? setToggle({ state: false, text: "Advance" })
-      : setToggle({ state: true, text: "Basic" });
+      ? setToggle({ state: false, text: "Advance", icon: "/searchadvance.png" })
+      : setToggle({ state: true, text: "Basic", icon: "/find.png" });
   };
 
   const notifyError = (error) =>
@@ -130,11 +131,7 @@ const Searchbar = ({ setList, perPage, setTotalRows }) => {
                     pattern: /^[A-Za-z\s]+$/i,
                   })}
                 />
-                <div className="error-box">
-                  {errors.type && errors.type.type === "pattern" && (
-                    <p className="error-field">English letters only</p>
-                  )}
-                </div>
+
                 <input
                   name="name"
                   type="text"
@@ -148,13 +145,20 @@ const Searchbar = ({ setList, perPage, setTotalRows }) => {
                     pattern: /^[A-Za-z\s]+$/i,
                   })}
                 />
+              </div>
+              <div className="input-group err">
+                <div className="error-box">
+                  {errors.type && errors.type.type === "pattern" && (
+                    <p className="error-field">English letters only</p>
+                  )}
+                </div>
                 <div className="error-box">
                   {errors.name && errors.name.type === "pattern" && (
                     <p className="error-field">English letters only</p>
                   )}
                 </div>
               </div>
-              <div className="input-group">
+              <div className="input-group numbers">
                 <input
                   name="height"
                   type="number"
@@ -183,46 +187,54 @@ const Searchbar = ({ setList, perPage, setTotalRows }) => {
                 type="submit"
                 disabled={disabled}
               >
-                Advance Search
+                <img
+                  className="serach-icon"
+                  src="/searchadvance.png"
+                  alt="search"
+                />
               </button>
             </form>
           </div>
         )}
         {!toggle.state && (
-          <form className="form-search" onSubmit={handleSubmit(handleSearch)}>
-            <input
-              name="search"
-              type="search"
-              className="search-input"
-              value={search}
-              placeholder="Type of animal..."
-              minLength="2"
-              maxLength="12"
-              onChange={(e) => setSearch(e.target.value)}
-              ref={register({
-                pattern: /^[A-Za-z\s]+$/i,
-              })}
-            />
+          <>
+            <form className="form-search" onSubmit={handleSubmit(handleSearch)}>
+              <input
+                name="search"
+                type="search"
+                className="search-input"
+                value={search}
+                placeholder="Type of animal..."
+                minLength="2"
+                maxLength="12"
+                onChange={(e) => setSearch(e.target.value)}
+                ref={register({
+                  pattern: /^[A-Za-z\s]+$/i,
+                })}
+              />
+              <button
+                name="simpleSearch"
+                type="submit"
+                className="search-btn"
+                disabled={disabled}
+              >
+                <img className="serach-icon" src="/find.png" alt="search" />
+              </button>
+            </form>
             <div className="error-box">
               {errors.search && errors.search.type === "pattern" && (
                 <p className="error-field">English letters only</p>
               )}
             </div>
-            <button
-              name="simpleSearch"
-              type="submit"
-              className="search-btn"
-              disabled={disabled}
-            >
-              Search
-            </button>
-          </form>
+          </>
         )}
       </div>
 
       <button type="button" className="toggle" onClick={onToogle}>
         {toggle.text}
+        <img className="serach-icon" src={toggle.icon} alt="search" />
       </button>
+
       <GridLoader
         css={override}
         size={50}

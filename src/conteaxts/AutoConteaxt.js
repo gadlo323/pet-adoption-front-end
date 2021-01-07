@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
-import jwt from "jwt-decode"; // import dependency
+import jwt from "jwt-decode";
 import { useHistory } from "react-router-dom";
 const AuthContext = React.createContext();
 
@@ -85,9 +85,9 @@ export const AutoProvider = ({ children }) => {
     history.push("/");
   };
   //update
-  const hendlaUpdate = async (data, id) => {
+  const hendlaUpdate = async (data) => {
     try {
-      const res = await axios.patch(`${baseUrl}/user/${id}`, data);
+      const res = await axios.patch(`${baseUrl}/user/${currentUser.uId}`, data);
       return res.data;
     } catch (err) {
       return err.response.data;

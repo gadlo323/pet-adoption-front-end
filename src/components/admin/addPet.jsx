@@ -49,16 +49,14 @@ const AddPet = (props) => {
     });
   };
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (data, e) => {
     e.preventDefault();
     const type = e.nativeEvent.submitter.name;
-
     setLoading(true);
     setDisabled(true);
     let formData = new FormData();
     formData.append("data", JSON.stringify(formInfo));
     formData.append("petImage", file);
-    // removeEmpty(formData);
     if (type !== "update") {
       var result = await addPet(formData);
     } else {
@@ -95,8 +93,8 @@ const AddPet = (props) => {
           name: res.name,
           status: res.status,
           hypoallergenic: res.hypoallergenic.toString(),
-          height: res.height,
-          weight: res.weight,
+          height: res.height.toString(),
+          weight: res.weight.toString(),
           breed: res.breed,
           color: res.color,
           dietary: res.dietary,
@@ -110,11 +108,6 @@ const AddPet = (props) => {
     }
   };
 
-  const removeEmpty = (obj) => {
-    Object.keys(obj).forEach(
-      (key) => (obj[key] == null || obj[key] == "") && delete obj[key]
-    );
-  };
   const notify = (message) =>
     toast.success(message, {
       position: "top-right",
@@ -150,7 +143,7 @@ const AddPet = (props) => {
             action="/addpet"
             encType="multipart/form-data"
             className="add-pet-form"
-            onSubmit={(e) => handleSubmit(onSubmit(e))}
+            onSubmit={handleSubmit(onSubmit)}
           >
             <div className="input-group">
               <input
@@ -161,9 +154,11 @@ const AddPet = (props) => {
                 placeholder="Type..."
                 onChange={handleChange}
                 minLength="2"
-                maxLength="12"
+                maxLength="15"
                 required
+                ref={register({ pattern: /^[A-Za-z]+$/i })}
               />
+
               <input
                 name="name"
                 type="text"
@@ -172,10 +167,24 @@ const AddPet = (props) => {
                 placeholder="Name..."
                 onChange={handleChange}
                 minLength="2"
-                maxLength="12"
+                maxLength="15"
                 required
+                ref={register({ pattern: /^[A-Za-z]+$/i })}
               />
             </div>
+            <div className="input-group">
+              <div className="error-box">
+                {errors.name && errors.name.type === "pattern" && (
+                  <p className="error-field">English letters only</p>
+                )}
+              </div>
+              <div className="error-box">
+                {errors.type && errors.type.type === "pattern" && (
+                  <p className="error-field">English letters only</p>
+                )}
+              </div>
+            </div>
+
             <div className="input-group">
               <div className="select-input">
                 <label htmlFor="status_id">Status</label>
@@ -215,8 +224,8 @@ const AddPet = (props) => {
                 className="add-pet-input"
                 placeholder="Height...cm"
                 onChange={handleChange}
-                min="10"
-                max="400"
+                min={10}
+                max={250}
                 required
               />
               <input
@@ -225,8 +234,8 @@ const AddPet = (props) => {
                 value={formInfo.weight || ""}
                 className="add-pet-input"
                 placeholder="Weight..KG"
-                min="0"
-                max="400"
+                min={1}
+                max={200}
                 onChange={handleChange}
                 required
               />
@@ -242,6 +251,9 @@ const AddPet = (props) => {
                 maxLength="12"
                 onChange={handleChange}
                 required
+                ref={register({
+                  pattern: /^[A-Za-z\s]+$/i,
+                })}
               />
               <input
                 name="dietary"
@@ -256,6 +268,13 @@ const AddPet = (props) => {
               />
             </div>
             <div className="input-group">
+              <div className="error-box">
+                {errors.color && errors.color.type === "pattern" && (
+                  <p className="error-field">English letters only</p>
+                )}
+              </div>
+            </div>
+            <div className="input-group">
               <input
                 name="breed"
                 type="text"
@@ -266,6 +285,9 @@ const AddPet = (props) => {
                 maxLength="20"
                 onChange={handleChange}
                 required
+                ref={register({
+                  pattern: /^[A-Za-z\s]+$/i,
+                })}
               />
               <input
                 name="bio"
@@ -279,9 +301,28 @@ const AddPet = (props) => {
                 required
               />
             </div>
+            <div className="input-group">
+              <div className="error-box">
+                {errors.breed && errors.breed.type === "pattern" && (
+                  <p className="error-field">English letters only</p>
+                )}
+              </div>
+            </div>
             <div className="input-group file-show">
-              <input type="file" name="file_pet" onChange={handleFileUpload} />
-              <img src={petImag} alt="" />
+              <label htmlFor="petImg">
+                <img
+                  className="upload-img"
+                  src="../../camera.png"
+                  alt="camera"
+                />
+              </label>
+              <input
+                id="petImg"
+                type="file"
+                name="file_pet"
+                onChange={handleFileUpload}
+              />
+              <img className="upload-file" src={petImag} alt="file upload" />
             </div>
 
             <div className="btn-groupe">

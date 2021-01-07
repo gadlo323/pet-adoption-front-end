@@ -90,9 +90,9 @@ const Signin = ({ show, setModel }) => {
               />
               <button className="btn-hide" type="button" onClick={tooglePass}>
                 {hide.state ? (
-                  <i className="fa fa-eye"></i>
-                ) : (
                   <i className="fa fa-eye-slash"></i>
+                ) : (
+                  <i className="fa fa-eye"></i>
                 )}
               </button>
             </div>

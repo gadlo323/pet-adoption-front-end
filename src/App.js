@@ -23,7 +23,7 @@ function App() {
           <Switch>
             <PublicRoute exact path="/" component={Welcoming} />
             <Route path="/search" component={Serach} />
-            <Route path="/Petpage/:id" component={Petpage} />
+            <Route path="/Petpage/:id/:owned?" component={Petpage} />
 
             <PrivateRoute path="/deshborad" component={Dashborad} />
             <PrivateRoute

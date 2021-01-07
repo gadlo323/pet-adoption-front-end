@@ -24,26 +24,33 @@
   font-size: 2rem;
   margin-left: 3rem;
   padding: 0.3rem 3rem;
-  background-color: tomato;
-  color: white;
+  background-color: transparent;
   border: none;
   border-radius: 1rem;
   outline: none;
   cursor: pointer;
+}
+.err {
+  margin-left: 6rem;
 }
 .toggle {
   display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
   align-self: flex-end;
   font-size: 2rem;
   padding: 0.3rem 3rem;
-  background-color: lightseagreen;
-  color: white;
+  background-color: transparent;
+  color: gray;
   border: none;
   border-radius: 1rem;
   cursor: pointer;
   outline: none;
 }
-
+.serach-icon {
+  width: 4rem;
+  margin-right: 1rem;
+}
 .form-search-advance {
   display: flex;
   flex-direction: column;
@@ -57,18 +64,23 @@
   margin-left: 2rem;
   outline: none;
 }
+
 .advance-search-btn {
   padding: 0.5rem 2rem;
   margin-left: 2rem;
   margin-top: 3rem;
   font-size: 2rem;
-  background-color: rgb(223, 86, 86);
+  background-color: transparent;
   border: none;
   border-radius: 2rem;
   color: white;
   outline: none;
   cursor: pointer;
 }
+.numbers input {
+  padding: 0.5rem 8rem;
+}
+
 @media (max-width: 80rem) {
   .form-search {
     flex-direction: column;
@@ -88,5 +100,8 @@
   }
   .advance-input {
     padding: 0.5rem 1rem;
+  }
+  .err {
+    margin-left: 2rem;
   }
 }

@@ -19,7 +19,7 @@
 .settings-form {
   display: flex;
   flex-basis: 40%;
-  min-height: 80vh;
+  margin-top: 8rem;
   align-items: center;
   z-index: 10;
 }
@@ -44,22 +44,30 @@
 .save-btn {
   padding: 0.5rem 5rem;
   font-size: 1.8rem;
-  background-color: #ff4f5a;
   color: white;
   border: none;
   border-radius: 1rem;
   margin-right: 2rem;
   cursor: pointer;
+  outline: none;
 }
 .save-btn:disabled {
   background-color: lightgray;
   color: black;
   cursor: not-allowed;
 }
-
+.profile-lable {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #3877ac;
+}
 @media (max-width: 80rem) {
   .profile {
     background-color: #96d9d2;
+    margin-top: 2rem;
+  }
+  .settings-form {
+    margin-top: 3rem;
   }
   .settings-img {
     display: none;

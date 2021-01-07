@@ -10,11 +10,13 @@ import "./mypets.css";
 const UserPets = () => {
   const { getPets, returnsavePet } = useAuth();
   const [onPets, setOnPets] = useState([]);
+  const [disabled, setDisabled] = useState(false);
   const [savedPets, setSavedPets] = useState([]);
   const [toggle, setToggle] = useState({
     state: false,
     text: "Saved",
     praesnt: [],
+    icon: "./save-close.png",
   });
 
   const myPets = async () => {
@@ -32,27 +34,50 @@ const UserPets = () => {
   }, []);
 
   const removeSavePet = async (e) => {
+    setDisabled(true);
     const petId = e.target.id;
     const result = await returnsavePet(petId);
-    if (result) notify("The pet was successfully removed");
+    if (result) {
+      notify("The pet was successfully removed");
+      setTimeout(() => {
+        setDisabled(false);
+      }, 2500);
+      reloadPage();
+    }
   };
 
   const onToogle = () => {
     toggle.state
-      ? setToggle({ state: false, text: "saved", praesnt: onPets })
-      : setToggle({ state: true, text: "owned", praesnt: savedPets });
+      ? setToggle({
+          state: false,
+          text: "saved",
+          praesnt: onPets,
+          icon: "./owned-folder.png",
+        })
+      : setToggle({
+          state: true,
+          text: "owned",
+          praesnt: savedPets,
+          icon: "./save-close.png",
+        });
   };
 
   const notify = (message) =>
     toast.success(message, {
       position: "top-right",
-      autoClose: 5000,
+      autoClose: 2700,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
     });
+
+  const reloadPage = () => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 2500);
+  };
   return (
     <>
       <NavLogged />
@@ -70,17 +95,16 @@ const UserPets = () => {
         </div>
         <ToastContainer className="notification" />
         <button
-          className={
-            toggle.text === "saved" ? "pets save-btn" : "pets owned-btn"
-          }
+          disabled={disabled}
+          className="pets"
           type="button"
           onClick={onToogle}
         >
-          {toggle.text || " saved"}
+          <img src={toggle.icon || "./save-close.png"} alt="icon-folder" />
         </button>
         <div
           className={
-            toggle.text === "saved" ? "card-pet save-btn" : "card-pet owned-btn"
+            toggle.text !== "owned" ? "card-pet save-btn" : "card-pet owned-btn"
           }
         >
           <Carousel showThumbs={false}>
@@ -108,7 +132,7 @@ const UserPets = () => {
                       <NavLink
                         className="btn-more"
                         exact
-                        to={`/Petpage/${item._id}`}
+                        to={`/Petpage/${item._id}/true`}
                       >
                         Show More
                       </NavLink>

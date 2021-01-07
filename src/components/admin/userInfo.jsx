@@ -5,12 +5,12 @@ import "./userInfo.css";
 
 const UserInfo = (props) => {
   const userId = props.match.params.id;
-  const { userInfo } = useAuth();
+  const { getUser } = useAuth();
   const [userData, setUserData] = useState({});
   const [userPets, setUserPets] = useState([]);
 
   const info = async () => {
-    const result = await userInfo(userId);
+    const result = await getUser(userId);
     setUserData(result.info);
     setUserPets(result.owned);
     // console.log(result);
