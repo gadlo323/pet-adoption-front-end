@@ -57,12 +57,12 @@ const AddPet = (props) => {
     let formData = new FormData();
     formData.append("data", JSON.stringify(formInfo));
     formData.append("petImage", file);
-    if (type !== "update") {
+    if (type !== "Updated") {
       var result = await addPet(formData);
     } else {
       var result = await editPet(formData, id, petInfo.cloudinary_id);
     }
-    if (result === true) notify("new pet add successfully 👌");
+    if (result === true) notify(`pet ${type} successfully 👌`);
     else notifyError(result + "👎");
     setTimeout(() => {
       setLoading(false);
@@ -146,31 +146,42 @@ const AddPet = (props) => {
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className="input-group">
-              <input
-                name="type"
-                type="text"
-                className="add-pet-input"
-                value={formInfo.type || ""}
-                placeholder="Type..."
-                onChange={handleChange}
-                minLength="2"
-                maxLength="15"
-                required
-                ref={register({ pattern: /^[A-Za-z]+$/i })}
-              />
-
-              <input
-                name="name"
-                type="text"
-                className="add-pet-input"
-                value={formInfo.name || ""}
-                placeholder="Name..."
-                onChange={handleChange}
-                minLength="2"
-                maxLength="15"
-                required
-                ref={register({ pattern: /^[A-Za-z]+$/i })}
-              />
+              <div className="input-box">
+                <label className="input-lable" htmlFor="type">
+                  Type
+                </label>
+                <input
+                  id="type"
+                  name="type"
+                  type="text"
+                  className="add-pet-input"
+                  value={formInfo.type || ""}
+                  placeholder="Type..."
+                  onChange={handleChange}
+                  minLength="2"
+                  maxLength="15"
+                  required
+                  ref={register({ pattern: /^[A-Za-z]+$/i })}
+                />
+              </div>
+              <div className="input-box">
+                <label className="input-lable" htmlFor="name">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  className="add-pet-input"
+                  value={formInfo.name || ""}
+                  placeholder="Name..."
+                  onChange={handleChange}
+                  minLength="2"
+                  maxLength="15"
+                  required
+                  ref={register({ pattern: /^[A-Za-z]+$/i })}
+                />
+              </div>
             </div>
             <div className="input-group">
               <div className="error-box">
@@ -187,7 +198,9 @@ const AddPet = (props) => {
 
             <div className="input-group">
               <div className="select-input">
-                <label htmlFor="status_id">Status</label>
+                <label className="input-lable" htmlFor="status_id">
+                  Status
+                </label>
                 <select
                   name="status"
                   value={formInfo.status || ""}
@@ -196,13 +209,15 @@ const AddPet = (props) => {
                   onChange={handleChange}
                   required
                 >
-                  <option value="Adopted">Adopted</option>
-                  <option value="Fostered">Fostered</option>
-                  <option value="Available">Available</option>
+                  <option value="adopted">Adopted</option>
+                  <option value="fostered">Fostered</option>
+                  <option value="available">Available</option>
                 </select>
               </div>
               <div className="select-input">
-                <label htmlFor="Hypoallergenic_id">Hypoallergenic</label>
+                <label className="input-lable" htmlFor="Hypoallergenic_id">
+                  Hypoallergenic
+                </label>
                 <select
                   name="hypoallergenic"
                   value={formInfo.hypoallergenic || "No"}
@@ -217,55 +232,79 @@ const AddPet = (props) => {
               </div>
             </div>
             <div className="input-group">
-              <input
-                name="height"
-                type="number"
-                value={formInfo.height || ""}
-                className="add-pet-input"
-                placeholder="Height...cm"
-                onChange={handleChange}
-                min={10}
-                max={250}
-                required
-              />
-              <input
-                name="weight"
-                type="number"
-                value={formInfo.weight || ""}
-                className="add-pet-input"
-                placeholder="Weight..KG"
-                min={1}
-                max={200}
-                onChange={handleChange}
-                required
-              />
+              <div className="input-box">
+                <label className="input-lable" htmlFor="height">
+                  Height
+                </label>
+                <input
+                  id="height"
+                  name="height"
+                  type="number"
+                  value={formInfo.height || ""}
+                  className="add-pet-input"
+                  placeholder="Height...cm"
+                  onChange={handleChange}
+                  min={10}
+                  max={250}
+                  required
+                />
+              </div>
+              <div className="input-box">
+                <label className="input-lable" htmlFor="weight">
+                  Weight
+                </label>
+                <input
+                  id="weight"
+                  name="weight"
+                  type="number"
+                  value={formInfo.weight || ""}
+                  className="add-pet-input"
+                  placeholder="Weight..KG"
+                  min={1}
+                  max={200}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
             <div className="input-group">
-              <input
-                name="color"
-                type="text"
-                value={formInfo.color || ""}
-                className="add-pet-input"
-                placeholder="color..."
-                minLength="3"
-                maxLength="12"
-                onChange={handleChange}
-                required
-                ref={register({
-                  pattern: /^[A-Za-z\s]+$/i,
-                })}
-              />
-              <input
-                name="dietary"
-                type="text"
-                value={formInfo.dietary || ""}
-                className="add-pet-input"
-                placeholder="dietary restrictions"
-                minLength="2"
-                maxLength="200"
-                onChange={handleChange}
-                required
-              />
+              <div className="input-box">
+                <label className="input-lable" htmlFor="color">
+                  Color
+                </label>
+                <input
+                  id="color"
+                  name="color"
+                  type="text"
+                  value={formInfo.color || ""}
+                  className="add-pet-input"
+                  placeholder="color..."
+                  minLength="3"
+                  maxLength="12"
+                  onChange={handleChange}
+                  required
+                  ref={register({
+                    pattern: /^[A-Za-z\s]+$/i,
+                  })}
+                />
+              </div>
+              <div className="input-box">
+                <label className="input-lable" htmlFor="dietary">
+                  Dietary
+                </label>
+                <input
+                  id="dietary"
+                  name="dietary"
+                  type="text"
+                  value={formInfo.dietary || ""}
+                  className="add-pet-input"
+                  placeholder="dietary restrictions"
+                  minLength="2"
+                  maxLength="200"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
             <div className="input-group">
               <div className="error-box">
@@ -275,31 +314,43 @@ const AddPet = (props) => {
               </div>
             </div>
             <div className="input-group">
-              <input
-                name="breed"
-                type="text"
-                value={formInfo.breed || ""}
-                className="add-pet-input"
-                placeholder="breed of animal..."
-                minLength="2"
-                maxLength="20"
-                onChange={handleChange}
-                required
-                ref={register({
-                  pattern: /^[A-Za-z\s]+$/i,
-                })}
-              />
-              <input
-                name="bio"
-                type="text"
-                value={formInfo.bio || ""}
-                className="add-pet-input"
-                placeholder="Bio...."
-                minLength="2"
-                maxLength="140"
-                onChange={handleChange}
-                required
-              />
+              <div className="input-box">
+                <label className="input-lable" htmlFor="breed">
+                  Breed
+                </label>
+                <input
+                  id="breed"
+                  name="breed"
+                  type="text"
+                  value={formInfo.breed || ""}
+                  className="add-pet-input"
+                  placeholder="breed of animal..."
+                  minLength="2"
+                  maxLength="20"
+                  onChange={handleChange}
+                  required
+                  ref={register({
+                    pattern: /^[A-Za-z\s]+$/i,
+                  })}
+                />
+              </div>
+              <div className="input-box">
+                <label className="input-lable" htmlFor="bio">
+                  Bio
+                </label>
+                <input
+                  id="bio"
+                  name="bio"
+                  type="text"
+                  value={formInfo.bio || ""}
+                  className="add-pet-input"
+                  placeholder="Bio...."
+                  minLength="2"
+                  maxLength="140"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
             </div>
             <div className="input-group">
               <div className="error-box">
@@ -322,23 +373,19 @@ const AddPet = (props) => {
                 name="file_pet"
                 onChange={handleFileUpload}
               />
-              <img className="upload-file" src={petImag} alt="file upload" />
+              <img className="upload-file" src={petImag} />
             </div>
 
             <div className="btn-groupe">
               {!id && (
-                <button
-                  name="addpet"
-                  type="submit"
-                  className="btnpet add-pet-btn"
-                >
+                <button name="Add" type="submit" className="btnpet add-pet-btn">
                   Add pet
                 </button>
               )}
 
               {id && (
                 <button
-                  name="update"
+                  name="Updated"
                   type="submit"
                   className="btnpet add-pet-reset"
                   disabled={disabled}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import Signup from "./signup";
 import Signin from "./signin";
@@ -39,8 +39,16 @@ const Navhome = () => {
           SignUp
         </button>
       </div>
-      <Signup show={modelSignup} setModel={setModelSignup} />
-      <Signin show={modelSignin} setModel={setModelSignin} />
+      <Signup
+        show={modelSignup}
+        setModel={setModelSignup}
+        loginModel={setModelSignin}
+      />
+      <Signin
+        show={modelSignin}
+        setModel={setModelSignin}
+        signModel={setModelSignup}
+      />
     </header>
   );
 };

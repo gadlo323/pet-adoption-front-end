@@ -25,7 +25,7 @@ const formFields = {
   password: "",
   repatePass: "",
 };
-const Signup = ({ show, setModel }) => {
+const Signup = ({ show, setModel, loginModel }) => {
   const { register, handleSubmit, errors } = useForm();
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -48,20 +48,25 @@ const Signup = ({ show, setModel }) => {
       const res = await signupUser(formInfo);
       if (res.error === 1) notifyError(res.dataSevere);
       else {
-        setModel(!show);
         history.push("/deshborad");
       }
-    } else notifyError("Password confirmation does not match to password !");
+    } else {
+      notifyError("Password confirmation does not match to password !");
+      setTimeout(() => {
+        setLoading(false);
+        setDisabled(false);
+      }, 1000);
+    }
 
-    setTimeout(() => {
-      setLoading(false);
-      setDisabled(false);
-    }, 1000);
     return false;
   };
 
   const closeModel = () => {
     setModel(!show);
+  };
+  const changeModel = () => {
+    setModel(false);
+    loginModel(true);
   };
 
   const notifyError = (error) =>
@@ -205,9 +210,16 @@ const Signup = ({ show, setModel }) => {
                 required
               />
               <label htmlFor="terms">
-                I agree to all the terms of the site
+                I agree to the Terms and Conditions.
               </label>
             </div>
+            <button
+              className="change-model"
+              type="button"
+              onClick={changeModel}
+            >
+              already have an account?
+            </button>
             <button type="submit" className="signup-btn" disabled={disabled}>
               Sign Up
             </button>
@@ -215,6 +227,7 @@ const Signup = ({ show, setModel }) => {
         </form>
         <img className="popy-cover" src="./popy.png" alt="popy" />
       </div>
+
       <GridLoader
         css={override}
         size={40}

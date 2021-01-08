@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
 import jwt from "jwt-decode";
+import Cookies from "js-cookie";
 import { useHistory } from "react-router-dom";
 const AuthContext = React.createContext();
 
@@ -13,29 +14,30 @@ export const AutoProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const history = useHistory();
   const baseUrl = "http://localhost:5000";
+  const objCookies = {
+    withCredentials: true,
+  };
 
   //userActive
   const userActive = async () => {
     try {
-      const token = JSON.parse(localStorage.getItem("token"));
-      if (token) {
-        const tokenRes = await axios.post(`${baseUrl}/user/tokenValid`, null, {
-          headers: {
-            authorization: "Bearer " + token,
-          },
-        });
-
-        if (tokenRes.data) {
-          const user = jwt(token);
-          setCurrentUser(user);
-          setLoading(false);
-        }
+      const isToken = Cookies.get("token");
+      if (isToken) {
+        const tokenRes = await axios.post(
+          `${baseUrl}/user/tokenValid`,
+          {},
+          objCookies
+        );
+        const user = jwt(tokenRes.data);
+        setCurrentUser(user);
+        setLoading(false);
       } else {
         setLoading(false);
       }
     } catch (err) {
       setLoading(false);
-      throw err;
+      console.log(err.response.data);
+      return err.response.data;
     }
   };
 
@@ -47,30 +49,20 @@ export const AutoProvider = ({ children }) => {
   //signUp
   const signupUser = async (data) => {
     try {
-      const res = await axios.post(`${baseUrl}/signup`, data);
-      localStorage.setItem("token", JSON.stringify(res.data));
-      const user = jwt(res.data);
-      setCurrentUser(user);
-      return { error: 0, dataSevere: user };
+      const res = await axios.post(`${baseUrl}/signup`, data, objCookies);
+      setCurrentUser(res.data);
+      return { error: 0, dataSevere: res.data };
     } catch (error) {
       return { error: 1, dataSevere: error.response.data };
     }
   };
   //login
-  const hendaleLogin = async (formInfo) => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    let config = {
-      headers: {
-        authorization: "Bearer " + token,
-      },
-    };
+  const hendaleLogin = async (data) => {
     try {
-      const res = await axios.post(`${baseUrl}/login`, formInfo, config);
+      const res = await axios.post(`${baseUrl}/login`, data, objCookies);
       if (res.data) {
-        localStorage.setItem("token", JSON.stringify(res.data));
-        const user = jwt(res.data);
-        setCurrentUser(user);
-        return user;
+        setCurrentUser(res.data);
+        return res.data;
       }
     } catch (error) {
       return false;
@@ -80,14 +72,18 @@ export const AutoProvider = ({ children }) => {
   //Logout
 
   const logOut = () => {
-    localStorage.removeItem("token");
+    Cookies.remove("token");
     setCurrentUser();
     history.push("/");
   };
   //update
   const hendlaUpdate = async (data) => {
     try {
-      const res = await axios.patch(`${baseUrl}/user/${currentUser.uId}`, data);
+      const res = await axios.patch(
+        `${baseUrl}/user/${currentUser.uId}`,
+        data,
+        objCookies
+      );
       return res.data;
     } catch (err) {
       return err.response.data;
@@ -97,7 +93,7 @@ export const AutoProvider = ({ children }) => {
   //getUser full
   const getUser = async (uId) => {
     try {
-      const res = await axios.get(`${baseUrl}/userFull/${uId}`);
+      const res = await axios.get(`${baseUrl}/userFull/${uId}`, objCookies);
       const data = res.data;
       return data;
     } catch (err) {
@@ -107,7 +103,7 @@ export const AutoProvider = ({ children }) => {
   //getUser basic info
   const userInfo = async (uId) => {
     try {
-      const res = await axios.get(`${baseUrl}/user/${uId}`);
+      const res = await axios.get(`${baseUrl}/user/${uId}`, objCookies);
       const data = res.data;
       return data;
     } catch (err) {
@@ -117,14 +113,8 @@ export const AutoProvider = ({ children }) => {
 
   //addPet to db
   const addPet = async (content) => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    let config = {
-      headers: {
-        authorization: "Bearer " + token,
-      },
-    };
     try {
-      const res = await axios.post(`${baseUrl}/addpet`, content, config);
+      const res = await axios.post(`${baseUrl}/addpet`, content, objCookies);
       if (res.data) {
         return res.data;
       }
@@ -135,17 +125,11 @@ export const AutoProvider = ({ children }) => {
 
   //edit Pet to db
   const editPet = async (content, id, cloudinary_id) => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    let config = {
-      headers: {
-        authorization: "Bearer " + token,
-      },
-    };
     try {
       const res = await axios.patch(
         `${baseUrl}/editpet/?id=${id}&cloudId=${cloudinary_id}`,
         content,
-        config
+        objCookies
       );
       if (res.data) {
         return res.data;
@@ -158,7 +142,7 @@ export const AutoProvider = ({ children }) => {
   //get one Pet from db
   const getPet = async (id) => {
     try {
-      const res = await axios.get(`${baseUrl}/pet/${id}`);
+      const res = await axios.get(`${baseUrl}/pet/${id}`, objCookies);
       if (res.data) {
         return res.data;
       }
@@ -187,7 +171,8 @@ export const AutoProvider = ({ children }) => {
     try {
       const res = await axios.post(
         `${baseUrl}/adopteFoster/${currentUser.uId}`,
-        { data: data, type: type }
+        { data: data, type: type },
+        objCookies
       );
       return res.data;
     } catch (err) {
@@ -199,7 +184,8 @@ export const AutoProvider = ({ children }) => {
     try {
       const res = await axios.post(
         `${baseUrl}/savePet/${currentUser.uId}`,
-        data
+        data,
+        objCookies
       );
       return res.data;
     } catch (err) {
@@ -211,7 +197,8 @@ export const AutoProvider = ({ children }) => {
   const returnsavePet = async (id) => {
     try {
       const res = await axios.delete(
-        `${baseUrl}/deletesavepet/?uId=${currentUser.uId}&petid=${id}`
+        `${baseUrl}/deletesavepet/?uId=${currentUser.uId}&petid=${id}`,
+        objCookies
       );
       return res.data;
     } catch (err) {
@@ -222,7 +209,10 @@ export const AutoProvider = ({ children }) => {
   //get user owned pets/saved
   const getPets = async () => {
     try {
-      const res = await axios.get(`${baseUrl}/myPets/${currentUser.uId}`);
+      const res = await axios.get(
+        `${baseUrl}/myPets/${currentUser.uId}`,
+        objCookies
+      );
       return res.data;
     } catch (err) {
       return err.response.data;
@@ -232,15 +222,9 @@ export const AutoProvider = ({ children }) => {
   //get all users
   const getUsers = async (page, perPage) => {
     try {
-      const token = JSON.parse(localStorage.getItem("token"));
-      let config = {
-        headers: {
-          authorization: "Bearer " + token,
-        },
-      };
       const res = await axios.get(
         `${baseUrl}/getusers/?page=${page}&per_page=${perPage}`,
-        config
+        objCookies
       );
       return res.data;
     } catch (err) {
@@ -252,7 +236,8 @@ export const AutoProvider = ({ children }) => {
   const returnPet = async (id) => {
     try {
       const res = await axios.post(
-        `${baseUrl}/returnPet/?uId=${currentUser.uId}&petid=${id}`
+        `${baseUrl}/returnPet/?uId=${currentUser.uId}&petid=${id}`,
+        objCookies
       );
       return res.data;
     } catch (err) {

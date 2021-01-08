@@ -1,0 +1,15 @@
+.not-found-404 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.not-found-404 img {
+  max-width: 50rem;
+}
+
+@media (max-width: 80rem) {
+  .not-found-404 img {
+    max-width: 32rem;
+  }
+}

@@ -13,7 +13,6 @@ const UserInfo = (props) => {
     const result = await getUser(userId);
     setUserData(result.info);
     setUserPets(result.owned);
-    // console.log(result);
   };
 
   useEffect(() => {

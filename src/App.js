@@ -14,6 +14,7 @@ import PublicRoute from "./components/publicRoute";
 import PrivateRouteAdmin from "./components/PrivateRouteAdmin";
 import Addpet from "./components/admin/addPet";
 import Admindashborad from "./components/admin/admindasborad";
+import PageNotFound from "./components/globel/404";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
               path="/admin/deshborad"
               component={Admindashborad}
             />
+            <Route path="*" exact={true} component={PageNotFound} />
           </Switch>
         </div>
       </AutoProvider>

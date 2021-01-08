@@ -42,10 +42,6 @@ const ProfileSettings = () => {
 
   useEffect(() => {
     info();
-
-    return () => {
-      info();
-    };
   }, []);
 
   const handleChange = (e) => {

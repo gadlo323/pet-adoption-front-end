@@ -30,10 +30,6 @@ const Petpage = (props) => {
 
   useEffect(() => {
     getPetData();
-
-    return () => {
-      getPetData();
-    };
   }, []);
 
   const adopteFoster = async (e) => {
@@ -118,7 +114,7 @@ const Petpage = (props) => {
               </div>
               <div className="colume">
                 <strong>Waight</strong>
-                <span>{petData.weight}K.g</span>
+                <span>{petData.weight} k.g</span>
               </div>
               <div className="colume">
                 <strong>Height</strong>
@@ -156,16 +152,21 @@ const Petpage = (props) => {
 
             {currentUser && (
               <div className="pet-btns">
-                {!(petData.status === "Adopted") && (
+                {!(petData.status === "adopted") && (
                   <div>
                     <button
-                      name="Adopted"
+                      name="adopted"
                       type="button"
                       className="pet-btn Adopet"
                       onClick={adopteFoster}
                       disabled={disabled}
                     >
                       Adopet
+                      <img
+                        className="log-icon"
+                        src="/house-adopte.png"
+                        alt="login-icon"
+                      />
                     </button>
                     {!owned && (
                       <button
@@ -176,43 +177,63 @@ const Petpage = (props) => {
                         disabled={disabled}
                       >
                         Save
+                        <img
+                          className="log-icon"
+                          src="/protect.png"
+                          alt="login-icon"
+                        />
                       </button>
                     )}
                   </div>
                 )}
-                {!(petData.status === "Fostered") &&
-                  petData.status !== "Adopted" && (
+                {!(petData.status === "fostered") &&
+                  petData.status !== "adopted" && (
                     <button
-                      name="Fostered"
+                      name="fostered"
                       type="button"
-                      className="pet-btn return"
+                      className="pet-btn foster"
                       onClick={adopteFoster}
                       disabled={disabled}
                     >
                       Foster
+                      <img
+                        className="log-icon"
+                        src="/foster-icon.png"
+                        alt="foster-icon"
+                      />
                     </button>
                   )}
-                {petData.status === "Fostered" ||
-                  (petData.status === "Adopted" && owned && (
+                {petData.status === "fostered" ||
+                  (petData.status === "adopted" && owned && (
                     <button
-                      name="Fostered"
+                      name="fostered"
                       type="button"
                       className="pet-btn return"
                       onClick={restorePet}
                       disabled={disabled}
                     >
-                      return Pet
+                      Return Pet
+                      <img
+                        className="log-icon"
+                        src="/easy-return.png"
+                        alt="foster-icon"
+                      />
                     </button>
                   ))}
-                {petData.status === "Fostered" && owned && (
+                {petData.status === "fostered" && owned && (
                   <button
-                    name="Fostered"
+                    name="fostered"
                     type="button"
                     className="pet-btn return"
                     onClick={restorePet}
                     disabled={disabled}
                   >
-                    return Pet
+                    Return Pet
+                    <img
+                      className="log-icon"
+                      src="/easy-return.png"
+                      alt="foster-icon"
+                    />
                   </button>
                 )}
                 {/* {petData.status === "Available" && (

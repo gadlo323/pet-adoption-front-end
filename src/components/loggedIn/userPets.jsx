@@ -28,9 +28,6 @@ const UserPets = () => {
 
   useEffect(() => {
     myPets();
-    return () => {
-      myPets();
-    };
   }, []);
 
   const removeSavePet = async (e) => {
@@ -52,13 +49,13 @@ const UserPets = () => {
           state: false,
           text: "saved",
           praesnt: onPets,
-          icon: "./owned-folder.png",
+          icon: "./save-close.png",
         })
       : setToggle({
           state: true,
           text: "owned",
           praesnt: savedPets,
-          icon: "./save-close.png",
+          icon: "./owned-folder.png",
         });
   };
 
@@ -119,13 +116,17 @@ const UserPets = () => {
                       <div className="info">
                         <p>name : {item.name}</p>
                         <p>status : {item.status}</p>
-                        {item.status === "Available" && (
+                        {item.status === "available" && (
                           <button
                             id={item._id}
                             className="delete-saved"
                             onClick={removeSavePet}
                           >
-                            remove
+                            <img
+                              className="trash-icon"
+                              src="/trash-bin.png"
+                              alt="trash-icon"
+                            />
                           </button>
                         )}
                       </div>
@@ -134,7 +135,11 @@ const UserPets = () => {
                         exact
                         to={`/Petpage/${item._id}/true`}
                       >
-                        Show More
+                        <img
+                          className="trash-icon"
+                          src="/more-icon.png"
+                          alt="more-info-icon"
+                        />
                       </NavLink>
                     </div>
                   </div>

@@ -55,7 +55,7 @@
   flex-direction: column;
 }
 .input-login {
-  padding: 0.7rem 2rem;
+  padding: 0.9rem 7rem;
   font-size: 1.8rem;
   margin-left: 1rem;
   border: none;
@@ -65,19 +65,27 @@
   margin-top: 1rem;
 }
 .login-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   align-self: center;
+  margin-right: 1rem;
   padding: 0.5rem 0rem;
   font-size: 2rem;
   border: none;
-  width: 60%;
+  width: 50%;
   border-radius: 1rem;
-  background-color: lightsalmon;
+  background-color: #47abd5;
   color: white;
   outline: none;
   cursor: pointer;
 }
+.log-icon {
+  max-width: 3rem;
+  margin-left: 1rem;
+}
 .login-btn:hover {
-  background-color: rgb(238, 126, 81);
+  background-color: #0d87bb;
 }
 .error-field-login {
   font-size: 1.8rem;
@@ -96,6 +104,16 @@
   outline: none;
   cursor: pointer;
 }
+.change-model {
+  position: relative;
+  top: 8rem;
+  background-color: transparent;
+  border: none;
+  font-size: 1.9rem;
+  color: wheat;
+  cursor: pointer;
+}
+
 @media (max-width: 80rem) {
   .login-model {
     width: 35rem;

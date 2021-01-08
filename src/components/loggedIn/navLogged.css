@@ -8,17 +8,21 @@ a {
   font-size: 3rem;
 }
 
-.log-out:hover {
-  background-color: lightseagreen;
-  color: white;
-  border: none;
-}
-
 .log-out {
+  display: flex;
+  align-items: center;
   padding: 0.5rem 1rem;
   font-size: 1.6rem;
   background-color: transparent;
   border-radius: 1rem;
   cursor: pointer;
-  color: white;
+  color: black;
+  font-weight: 700;
+  background-color: lightseagreen;
+  border: none;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+.log-out:hover {
+  color: wheat;
 }

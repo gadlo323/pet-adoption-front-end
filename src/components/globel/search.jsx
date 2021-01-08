@@ -46,7 +46,7 @@ const Serach = () => {
   };
   const conditionalRowStyles = [
     {
-      when: (row) => row.status === "Adopted",
+      when: (row) => row.status === "adopted",
       style: {
         background: "#E16C6C",
         "&:hover": {
@@ -55,7 +55,7 @@ const Serach = () => {
       },
     },
     {
-      when: (row) => row.status === "Fostered",
+      when: (row) => row.status === "fostered",
       style: {
         background: "#F2BC57",
         "&:hover": {
@@ -64,7 +64,7 @@ const Serach = () => {
       },
     },
     {
-      when: (row) => row.status === "Available",
+      when: (row) => row.status === "available",
       style: {
         backgroundImage: "linear-gradient(to right, #43e97b 0%, #38f9d7 100%)",
         "&:hover": {

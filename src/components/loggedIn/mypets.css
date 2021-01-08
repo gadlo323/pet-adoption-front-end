@@ -63,9 +63,8 @@
   font-family: "Russo One", sans-serif;
 }
 .btn-more {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 2rem;
   font-size: 2rem;
-  background-color: #1a2725;
   color: white;
   border: none;
   border-radius: 1rem;
@@ -76,18 +75,22 @@
   background-color: #297dcc;
 }
 .delete-saved {
+  position: relative;
+  left: 16.5rem;
+  top: -9rem;
   padding: 0.3rem 2rem;
-  font-size: 1.9rem;
-  background-color: lightskyblue;
   border: none;
+  background-color: transparent;
   border-radius: 2rem;
   outline: none;
   color: black;
   cursor: pointer;
 }
+.trash-icon {
+  max-width: 4rem;
+}
 .delete-saved:hover {
-  background-color: #297dcc;
-  color: white;
+  transform: scale(1.5);
 }
 .carousel .slide {
   background: none;
@@ -105,5 +108,11 @@
   }
   .btn-more {
     font-size: 2rem;
+    padding: 0.5rem 2rem !important;
+  }
+  .delete-saved {
+    position: relative;
+    left: 16.5rem;
+    top: -10rem;
   }
 }

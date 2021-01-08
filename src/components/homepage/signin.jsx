@@ -9,7 +9,7 @@ const formFields = {
   email: "",
   password: "",
 };
-const Signin = ({ show, setModel }) => {
+const Signin = ({ show, setModel, signModel }) => {
   const { register, handleSubmit, errors } = useForm();
   const [formInfo, setFormInfo] = useState(formFields);
   const [error, setError] = useState("");
@@ -24,6 +24,10 @@ const Signin = ({ show, setModel }) => {
   const closeModel = () => {
     setModel(!show);
   };
+  const changeModel = () => {
+    setModel(false);
+    signModel(true);
+  };
   const handleChange = (e) => {
     setFormInfo({
       ...formInfo,
@@ -34,11 +38,11 @@ const Signin = ({ show, setModel }) => {
   const onSubmit = async () => {
     const res = await hendaleLogin(formInfo);
     if (res) {
-      setModel(!show);
       if (res.role == 1) history.push("/deshborad");
       else if (res.role == 2) history.push("/admin/deshborad");
+    } else {
+      setError("You have entered an invalid email or password");
     }
-    setError("You have entered an invalid email or password");
     return false;
   };
 
@@ -103,9 +107,17 @@ const Signin = ({ show, setModel }) => {
               )}
             </div>
             <button className="login-btn" type="submit">
-              Sign In
+              Login
+              <img
+                className="log-icon"
+                src="/enter-icon.png"
+                alt="login-icon"
+              />
             </button>
           </form>
+          <button className="change-model" type="button" onClick={changeModel}>
+            Don't have an account yet?
+          </button>
           <span className="error-field-login">{error}</span>
           <img className="login-img" src="./login_pets.png" alt="" />
         </div>

@@ -34,9 +34,9 @@
 }
 .card:hover {
   transform: translateY(-5rem);
-  background-color: #ff4f5a;
-  color: white;
+  background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%);
 }
+
 .crad-img img {
   max-width: 20rem;
 }
@@ -46,6 +46,9 @@
 
 .crad-link a {
   font-size: 2rem;
+}
+.crad-link:hover a {
+  color: black;
 }
 .cool {
   position: absolute;
@@ -58,7 +61,6 @@
   .card {
     width: 100%;
     margin: 2rem 0;
-    background-color: #d95f5f;
     transform: none;
   }
   .card:hover {

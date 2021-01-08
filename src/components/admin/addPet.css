@@ -87,6 +87,19 @@
   border-radius: 100%;
   cursor: pointer;
 }
+.input-box {
+  display: flex;
+  flex-direction: column;
+}
+.input-lable {
+  position: relative;
+  left: 1rem;
+  padding: 0.2rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #05b356;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 @media (max-width: 80rem) {
   .add-pet {
     margin-top: 2rem;
