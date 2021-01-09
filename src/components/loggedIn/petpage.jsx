@@ -236,16 +236,6 @@ const Petpage = (props) => {
                     />
                   </button>
                 )}
-                {/* {petData.status === "Available" && (
-                  <button
-                    name="save"
-                    type="button"
-                    className="pet-btn save"
-                    onClick={save}
-                  >
-                    Save
-                  </button>
-                )} */}
               </div>
             )}
           </div>

@@ -29,11 +29,11 @@ const Swiperimg = () => {
       <Swiper
         tag="section"
         wrapperTag="ul"
-        spaceBetween={20}
-        slidesPerView={4}
         navigation
         autoplay={{ delay: 1000 }}
         pagination={{ clickable: true }}
+        spaceBetween={20}
+        slidesPerView={4}
       >
         {slides}
       </Swiper>

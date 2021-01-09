@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { GridLoader } from "react-spinners";
+import { css } from "@emotion/react";
 import { useAuth } from "../../conteaxts/AutoConteaxt";
 import Modal from "react-modal";
 import "./signin.css";
 import { useHistory } from "react-router-dom";
 Modal.setAppElement("#root");
+
+const override = css`
+  position: fixed;
+  top: 40%;
+  left: 40%;
+  border-color: red;
+`;
 const formFields = {
   email: "",
   password: "",
 };
 const Signin = ({ show, setModel, signModel }) => {
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit, errors } = useForm();
   const [formInfo, setFormInfo] = useState(formFields);
   const [error, setError] = useState("");
@@ -36,11 +46,13 @@ const Signin = ({ show, setModel, signModel }) => {
   };
 
   const onSubmit = async () => {
+    setLoading(true);
     const res = await hendaleLogin(formInfo);
     if (res) {
       if (res.role == 1) history.push("/deshborad");
       else if (res.role == 2) history.push("/admin/deshborad");
     } else {
+      setLoading(false);
       setError("You have entered an invalid email or password");
     }
     return false;
@@ -119,9 +131,15 @@ const Signin = ({ show, setModel, signModel }) => {
             Don't have an account yet?
           </button>
           <span className="error-field-login">{error}</span>
-          <img className="login-img" src="./login_pets.png" alt="" />
+          <img className="login-img" src="../login_pets.png" alt="" />
         </div>
       </div>
+      <GridLoader
+        css={override}
+        size={40}
+        color={"#123abc"}
+        loading={loading}
+      />
     </Modal>
   );
 };

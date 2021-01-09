@@ -26,17 +26,18 @@ const Navhome = () => {
         </div>
         <div className="search-nav">
           <NavLink className="search-link" exact to="/search">
-            Search
+            <img src="../Vector-search.png" alt="search-icon" />
           </NavLink>
-          <img src="./Vector-search.png" alt="" />
         </div>
       </div>
       <div className="auth-user">
         <button className="btn btn-login" type="button" onClick={openLogin}>
-          LogIn
+          LOGIN
+          <img className="login-icon" src="/login-user.png" alt="login-icon" />
         </button>
         <button className="btn btn-signup" type="button" onClick={openModel}>
-          SignUp
+          SIGNUP
+          <img className="signup-icon" src="/add-use.png" alt="signup-icon" />
         </button>
       </div>
       <Signup

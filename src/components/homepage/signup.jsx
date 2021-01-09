@@ -82,7 +82,7 @@ const Signup = ({ show, setModel, loginModel }) => {
 
   const Errors = {
     patternEmial: "This email is invalid",
-    patternPhone: "Invalid phone number",
+    patternPhone: "Invalid phone number! Exmple:053*******",
   };
   const compearPass = () => {
     return formInfo.password === formInfo.repatePass ? true : false;
@@ -225,7 +225,7 @@ const Signup = ({ show, setModel, loginModel }) => {
             </button>
           </div>
         </form>
-        <img className="popy-cover" src="./popy.png" alt="popy" />
+        <img className="popy-cover" src="../popy.png" alt="popy" />
       </div>
 
       <GridLoader

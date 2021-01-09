@@ -119,6 +119,7 @@ const Searchbar = ({ setList, perPage, setTotalRows }) => {
               </select>
               <div className="input-group">
                 <input
+                  list="types"
                   name="type"
                   type="text"
                   className="advance-input"
@@ -131,7 +132,10 @@ const Searchbar = ({ setList, perPage, setTotalRows }) => {
                     pattern: /^[A-Za-z\s]+$/i,
                   })}
                 />
-
+                <datalist id="types">
+                  <option value="dog" />
+                  <option value="cat" />
+                </datalist>
                 <input
                   name="name"
                   type="text"
@@ -202,6 +206,7 @@ const Searchbar = ({ setList, perPage, setTotalRows }) => {
               <input
                 name="search"
                 type="search"
+                list="types"
                 className="search-input"
                 value={search}
                 placeholder="Type of animal..."
@@ -212,6 +217,10 @@ const Searchbar = ({ setList, perPage, setTotalRows }) => {
                   pattern: /^[A-Za-z\s]+$/i,
                 })}
               />
+              <datalist id="types">
+                <option value="dog" />
+                <option value="cat" />
+              </datalist>
               <button
                 name="simpleSearch"
                 type="submit"

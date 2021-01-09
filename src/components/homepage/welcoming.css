@@ -46,4 +46,12 @@
   .head-line {
     text-align: center;
   }
+  .details-info p {
+    font-size: 2rem;
+    word-break: break-all;
+    padding: 3rem;
+  }
+  .details-info img {
+    max-width: 35rem;
+  }
 }

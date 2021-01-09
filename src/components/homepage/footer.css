@@ -2,15 +2,16 @@ footer {
   background-color: #c8c0bb;
   color: black;
   margin-top: 1rem;
+  overflow: hidden;
 }
 .footer-wrapper {
-  min-height: 10vh;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 10vh;
   padding: 2rem;
   width: 90%;
   margin: auto;
-  align-items: center;
-  flex-wrap: wrap;
 }
 .footer-wrapper h5 {
   flex: 1 1 40rem;
@@ -18,8 +19,10 @@ footer {
 .footer-wrapper ul {
   display: flex;
   list-style: none;
-  flex: 1 1 40rem;
-  justify-content: space-between;
+}
+.footer-wrapper ul > li > a {
+  font-size: 4rem;
+  color: black !important;
 }
 
 @media screen and (max-width: 80rem) {
@@ -28,5 +31,9 @@ footer {
   }
   footer h5 {
     padding-bottom: 3rem;
+  }
+  .footer-wrapper ul > li {
+    font-size: 4rem;
+    padding: 0 1rem;
   }
 }

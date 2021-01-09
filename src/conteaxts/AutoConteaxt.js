@@ -13,7 +13,7 @@ export const AutoProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
   const history = useHistory();
-  const baseUrl = "http://localhost:5000";
+  const baseUrl = "https://adoptfriend.herokuapp.com";
   const objCookies = {
     withCredentials: true,
   };
@@ -36,7 +36,6 @@ export const AutoProvider = ({ children }) => {
       }
     } catch (err) {
       setLoading(false);
-      console.log(err.response.data);
       return err.response.data;
     }
   };
