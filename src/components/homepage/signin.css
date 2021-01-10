@@ -115,6 +115,15 @@
 }
 
 @media (max-width: 80rem) {
+  .model {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    width: 85%;
+  }
+  .login-model {
+    width: 50rem;
+  }
   .login-model {
     width: 35rem;
   }

@@ -46,8 +46,13 @@ const Signup = ({ show, setModel, loginModel }) => {
     setDisabled(true);
     if (compearPass()) {
       const res = await signupUser(formInfo);
-      if (res.error === 1) notifyError(res.dataSevere);
-      else {
+      if (res.error === 1) {
+        notifyError(res.dataSevere);
+        setTimeout(() => {
+          setLoading(false);
+          setDisabled(false);
+        }, 1000);
+      } else {
         history.push("/deshborad");
       }
     } else {
