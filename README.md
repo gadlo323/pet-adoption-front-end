@@ -2,12 +2,7 @@
 
 https://adoptefriend.netlify.app
 
-# Login for Mentors
 
-Login as user : just signup
-Login as admin :
-Email: Admin@gmail.com
-Password: Admin123
 
 # Getting Started with Create React App
 
